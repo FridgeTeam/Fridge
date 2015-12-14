@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fridge.Models", "Fridge.Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fridge.WebClient", "Fridge.WebClient\Fridge.WebClient.csproj", "{EC3C5C1F-3933-4A93-9EFF-85962896DCFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fridge.Common", "Fridge.Common\Fridge.Common.csproj", "{E6A7C55C-C9A0-4C90-88C6-87682BCDEDE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EC3C5C1F-3933-4A93-9EFF-85962896DCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC3C5C1F-3933-4A93-9EFF-85962896DCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC3C5C1F-3933-4A93-9EFF-85962896DCFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6A7C55C-C9A0-4C90-88C6-87682BCDEDE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6A7C55C-C9A0-4C90-88C6-87682BCDEDE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6A7C55C-C9A0-4C90-88C6-87682BCDEDE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6A7C55C-C9A0-4C90-88C6-87682BCDEDE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

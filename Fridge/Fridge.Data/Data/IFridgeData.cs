@@ -6,7 +6,9 @@
     public interface IFridgeData
     {
         IRepository<User> Users { get; }
- 
+
+        IRepository<UserSession> UserSessions { get; }
+
         int SaveChanges();
     }
 }

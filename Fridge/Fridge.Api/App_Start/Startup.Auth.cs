@@ -11,6 +11,9 @@ namespace Fridge.Api
 {
     public partial class Startup
     {
+        public const string TokenEndpointPath = "/Token";
+        public const string AuthorizeEndpointPath = "/api/Account/ExternalLogin";
+
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }

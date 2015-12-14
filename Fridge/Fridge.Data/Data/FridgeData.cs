@@ -10,6 +10,11 @@
         private IFridgeDbContext context;
         private IDictionary<Type, object> repositories;
 
+        public FridgeData()
+        {
+            this.context = new FridgeDbContext();
+        }
+
         public FridgeData(IFridgeDbContext context)
         {
             this.context = context;
@@ -26,7 +31,12 @@
             get { return this.GetRepository<User>(); }
         }
 
-       
+        public IRepository<UserSession> UserSessions
+        {
+            get { return this.GetRepository<UserSession>(); }
+        }
+
+
 
         public int SaveChanges()
         {

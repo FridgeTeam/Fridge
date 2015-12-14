@@ -1,7 +1,8 @@
-﻿using System;
-using System.Data.Entity;
-using Fridge.Models;
+﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+
+using Fridge.Data.Migrations;
+using Fridge.Models;
 
 namespace Fridge.Data
 {
@@ -10,13 +11,15 @@ namespace Fridge.Data
         public FridgeDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<FridgeDbContext, Configuration>());
         }
 
         public static FridgeDbContext Create()
         {
             return new FridgeDbContext();
         }
+
+        public IDbSet<UserSession> UserSessions { get; set; }
 
         IDbSet<T> IFridgeDbContext.Set<T>()
         {

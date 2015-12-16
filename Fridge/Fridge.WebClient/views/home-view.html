@@ -1,6 +1,7 @@
 ﻿<div style="background-color:ActiveCaption">
     <div class="container">
         <div class="row">
+
             <div class="col-md-12 hidden-xs">
                 <div id="my-carousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -44,49 +45,10 @@
             </div>
         </div>
 
-        <div ng-app="" ng-init="names=[
-            {title:'Chef John\'s Perfect Prime Rib', chef: 'Chef John', description: 'this delicious chicken dish is exquisite and easy to prepare. the light and luscious lemon sauce really pops without being too acidic; it is simply divine. serve it with herb-roasted potatoes or lemon-rice pilaf.', image:'http://images.media-allrecipes.com/userphotos/250x250/1876731.jpg'},
-            {title:'Absolutely Ultimate Potato Soup', chef: 'Karena', description: 'I have made this for many whom have given it the title. This takes a bit of effort but is well worth it. Please note: for those who do not wish to use bacon, substitute 1/4 cup melted butter for the bacon grease and continue with the recipe. (I generally serve this soup as a special treat as it is not recommended for people counting calories.)', image:'http://images.media-allrecipes.com/userphotos/250x250/168555.jpg'},
-            {title:'Lemon Chicken Piccata', chef: 'LemonLush', description: 'This delicious chicken dish is exquisite and easy to prepare. The light and luscious lemon sauce really pops without being too acidic; it is simply divine. Serve it with herb-roasted potatoes or lemon-rice pilaf.', image:'http://images.media-allrecipes.com/userphotos/250x250/450856.jpg'},
-            {title:'Overnight Blueberry French Toast', chef: 'KARAN1946', description: 'This is a very unique breakfast dish. Good for any holiday breakfast or brunch, it\'s filled with the fresh taste of blueberries, and covered with a rich blueberry sauce to make it a one of a kind.', image:'http://images.media-allrecipes.com/userphotos/250x250/381517.jpg'},
-            {title:'Absolutely Ultimate Potato Soup', chef: 'Karena', description: 'I have made this for many whom have given it the title. This takes a bit of effort but is well worth it. Please note: for those who do not wish to use bacon, substitute 1/4 cup melted butter for the bacon grease and continue with the recipe. (I generally serve this soup as a special treat as it is not recommended for people counting calories.)', image:'http://images.media-allrecipes.com/userphotos/250x250/168555.jpg'},
-            {title:'Lemon Chicken Piccata', chef: 'LemonLush', description: 'This delicious chicken dish is exquisite and easy to prepare. The light and luscious lemon sauce really pops without being too acidic; it is simply divine. Serve it with herb-roasted potatoes or lemon-rice pilaf.', image:'http://images.media-allrecipes.com/userphotos/250x250/450856.jpg'},
-            {title:'Overnight Blueberry French Toast', chef: 'KARAN1946', description: 'This is a very unique breakfast dish. Good for any holiday breakfast or brunch, it\'s filled with the fresh taste of blueberries, and covered with a rich blueberry sauce to make it a one of a kind.', image:'http://images.media-allrecipes.com/userphotos/250x250/381517.jpg'},
-            {title:'Chef John\'s Perfect Prime Rib', chef: 'Chef John', description: 'this delicious chicken dish is exquisite and easy to prepare. the light and luscious lemon sauce really pops without being too acidic; it is simply divine. serve it with herb-roasted potatoes or lemon-rice pilaf.', image:'http://images.media-allrecipes.com/userphotos/250x250/1876731.jpg'}
-        ]">
-        </div>
         <div class="row">
-            <div class="col-md-3" ng-repeat="x	in names">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <img src="{{x.image}}" style="width: 100%" />
-                    </div>
-                    <div class="panel-body">
-                        <a href="#" style="font-weight: bold; text-decoration: none;">{{x.title}}</a>
-                        <p>
-                            {{x.description}}
-                        </p>
-                    </div>
-                    <div class="panel-footer">
-                        Recipie by <a href="#">{{x.chef}}</a>
-                    </div>
-                </div>
+            <div class="col-md-3" ng-repeat="recepie in recepies">
+                <div recepie datasource="recepie"></div>
             </div>
         </div>
     </div>
 </div>
-
-
-<div class="container">
-    <div class="row">
-        <!--main-->
-        <div>
-
-            <div class="col-md-2" ng-repeat="item in items">
-                <div item-for-sell datasource="item">   </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-

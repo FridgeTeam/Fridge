@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Fridge.Models
+﻿namespace Fridge.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class UserSession
     {
-        [Required]
         public int Id { get; set; }
 
         [Required]

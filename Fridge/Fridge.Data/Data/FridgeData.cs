@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Models;
     using Repositories;
+    using Models.Social;
 
     public class FridgeData : IFridgeData
     {
@@ -36,7 +37,41 @@
             get { return this.GetRepository<UserSession>(); }
         }
 
+        public IRepository<Category> Categories
+        {
+            get { return this.GetRepository<Category>(); }
+        }
 
+        public IRepository<Comment> Comments
+        {
+            get { return this.GetRepository<Comment>(); }
+        }
+
+        public IRepository<Ingredient> Ingredients
+        {
+            get { return this.GetRepository<Ingredient>(); }
+        }
+
+        public IRepository<PreparationStep> PreparationSteps
+        {
+            get { return this.GetRepository<PreparationStep>(); }
+        }
+
+        public IRepository<Rating> Ratings
+        {
+            get { return this.GetRepository<Rating>(); }
+        }
+
+        public IRepository<Recipe> Recipes
+        {
+            get { return this.GetRepository<Recipe>(); }
+        }
+
+        public IRepository<Unit> Units
+        {
+            get { return this.GetRepository<Unit>(); }
+        }
+        
 
         public int SaveChanges()
         {

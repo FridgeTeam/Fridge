@@ -17,8 +17,7 @@
             notyService.success("Login successfully.");
         })
         .error(function (error) {
-            notyService.error("Login error: " + error.Message);
-            console.log(error);
+            notyService.error("Login error: " + error.error_description);
         });
     };
 });

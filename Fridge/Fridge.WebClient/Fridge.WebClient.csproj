@@ -203,6 +203,7 @@
     <Content Include="bower_components\noty\noty.jquery.json" />
     <Content Include="bower_components\noty\package.json" />
     <Content Include="bower_components\noty\README.markdown" />
+    <Content Include="package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

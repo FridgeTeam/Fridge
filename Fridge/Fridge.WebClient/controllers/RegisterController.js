@@ -20,13 +20,11 @@
         userRequests.register($scope.userData)
         .success(function (data) {
             userSession.login(data);
-            console.log(data);
             notyService.success("Register successfully.");
             $location.path('/');
-            notyService.success("Login successfully.");
         })
         .error(function (error) {
-            notyService.error("Login error: " + error);
+            notyService.error(error);
             console.log(error);
         });
     };

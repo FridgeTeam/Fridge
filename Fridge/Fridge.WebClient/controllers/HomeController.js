@@ -13,14 +13,15 @@
     ];
 
     $scope.fixLayot = function () {
+        var id;
         $(function () {
             setTimeout(function () {
                 $(".grid").masonry();
             }, 200);
 
-            $(window).resize(function () {
-                console.log("asd");
-                setTimeout(function () {
+            $(window).resize(function () {              
+                clearTimeout(id);               
+                id = setTimeout(function () {
                     $(".grid").masonry();
                     console.log("asd");
                 }, 1000);

@@ -101,5 +101,14 @@ namespace Fridge.Api.Controllers
                 });
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.Data.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

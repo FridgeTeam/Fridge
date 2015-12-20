@@ -1,5 +1,7 @@
 ﻿namespace Fridge.Data.Repositories
 {
+    using Models.Contracts;
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -19,28 +21,28 @@
 
         protected IDbSet<T> DbSet { get; set; }
 
-        public IQueryable<T> All()
+        public virtual IQueryable<T> All()
         {
-            return this.DbSet.AsQueryable();
+            return this.DbSet;
         }
 
-        public IQueryable<T> Find(Expression<System.Func<T, bool>> expression)
+        public virtual IQueryable<T> Find(Expression<Func<T, bool>> expression)
         {
-            return this.DbSet.Where(expression).AsQueryable();
+            return this.All().Where(expression);
         }
 
-        public T GetById(object id)
+        public virtual T GetById(object id)
         {
             return this.DbSet.Find(id);
         }
 
-        public T Add(T entity)
+        public virtual T Add(T entity)
         {
             this.ChangeState(entity, EntityState.Added);
             return entity;
         }
 
-        public void AddRange(IList<T> entities)
+        public virtual void AddRange(IList<T> entities)
         {
             foreach (T entity in entities)
             {
@@ -48,24 +50,24 @@
             }
         }
 
-        public T Update(T entity)
+        public virtual T Update(T entity)
         {
             this.ChangeState(entity, EntityState.Modified);
             return entity;
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             this.ChangeState(entity, EntityState.Deleted);
         }
 
-        public void Delete(object id)
+        public virtual void Delete(object id)
         {
             var entity = this.GetById(id);
             this.Delete(entity);
         }
 
-        public void DeleteRange(IQueryable<T> entities)
+        public virtual void DeleteRange(IQueryable<T> entities)
         {
             foreach (T entity in entities)
             {
@@ -73,7 +75,7 @@
             }
         }
 
-        public void Detach(T entity)
+        public virtual void Detach(T entity)
         {
             var entry = this.Context.Entry(entity);
             entry.State = EntityState.Detached;

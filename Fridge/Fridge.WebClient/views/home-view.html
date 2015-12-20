@@ -1,6 +1,6 @@
 ﻿<div style="background-color:ActiveCaption">
     <div class="container">
-        <div class="row">
+        <!--<div class="row">
 
             <div class="col-md-12 hidden-xs">
                 <div id="my-carousel" class="carousel slide" data-ride="carousel">
@@ -43,12 +43,13 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div>-->
 
-        <div class="row">
-            <div class="col-md-3" ng-repeat="recepie in recepies">
-                <div recepie datasource="recepie"></div>
-            </div>
-        </div>
+        <ul class="grid" masonry="true">
+            <li ng-repeat="recepie in recepies">
+                <div recipe datasource="recepie"></div>
+            </li>
+        </ul>
     </div>
 </div>
+

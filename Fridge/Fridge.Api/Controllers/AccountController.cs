@@ -17,6 +17,7 @@ using Fridge.Api.Models;
 using Fridge.Api.Providers;
 using Fridge.Api.Results;
 using Fridge.Models;
+using Fridge.Api.BindingModels.User;
 
 namespace Fridge.Api.Controllers
 {

@@ -1,12 +1,13 @@
 ﻿namespace Fridge.Data
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
 
     using Models;
     using Models.Social;
-
-    public interface IFridgeDbContext
+ 
+    public interface IFridgeDbContext : IDisposable
     {
         IDbSet<User> Users { set; }
 

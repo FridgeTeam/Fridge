@@ -1,12 +1,15 @@
 namespace Fridge.Data.Migrations
 {
+    using Models;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<FridgeDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<FridgeDbContext>
     {
+        private Random random = new Random(0);
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = true;
@@ -15,18 +18,52 @@ namespace Fridge.Data.Migrations
 
         protected override void Seed(FridgeDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            if (context.Categories.Any())
+            {
+                return;
+            }
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            List<Category> categories = this.SeedCategories(context);
+            List<Unit> units = this.SeedUnits(context);
+            //List<User> users = this.SeedUsers(context, jobTitles, departments);
+            //List<Recipe> recipe = this.SeedRecipes(context);
+        }
+
+        private List<Unit> SeedUnits(FridgeDbContext context)
+        {
+            List<Unit> units = new List<Unit>();
+            List<string> unitNames = new List<string>() { "kg", "g", "ml", "l", "cup" };
+
+            foreach (var name in unitNames)
+            {
+                Unit unit = new Unit();
+                unit.Name = name;
+                units.Add(unit);
+                context.Units.Add(unit);
+            }
+
+            context.SaveChanges();
+            return units;
+        }
+
+        private List<Category> SeedCategories(FridgeDbContext context)
+        {
+
+            List<Category> categories = new List<Category>();
+            List<string> categoryNames = new List<string>() { "Chicken", "Main Dish", "Salad", "Quick", "Desert", "Healthy" };
+
+            int position = categoryNames.Count;
+            foreach (var name in categoryNames)
+            {
+                Category category = new Category();
+                category.Name = name;
+                category.Position = position--;
+                categories.Add(category);
+                context.Categories.Add(category);
+            }
+
+            context.SaveChanges();
+            return categories;
         }
     }
 }

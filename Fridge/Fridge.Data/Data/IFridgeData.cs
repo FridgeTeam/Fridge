@@ -3,8 +3,9 @@
     using Models.Social;
     using Models;
     using Repositories;
+    using System;
 
-    public interface IFridgeData
+    public interface IFridgeData : IDisposable
     {
         IRepository<User> Users { get; }
 

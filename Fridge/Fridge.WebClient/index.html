@@ -5,7 +5,6 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="styles/theme.css" rel="stylesheet" />
     <link href="styles/app.css" rel="stylesheet" />
-
 </head>
 <body>
     <div style="background-image: linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5); background-repeat: no-repeat;">
@@ -40,7 +39,7 @@
                                     </div>
                                     <div ng-switch-when="true" class="btn-group">
                                         <a href="#/" class="btn btn-primary">{{username}}</a>
-                                    </div>                                   
+                                    </div>
                                     <!--options-->
                                     <div ng-switch-when="true" class="btn-group">
                                         <div ng-switch="isAdmin">
@@ -67,17 +66,18 @@
     <div ng-view>
 
     </div>
-    
 
-
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
 
     <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
+   
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js"></script>
 
     <script src="app.js"></script>
 
@@ -91,7 +91,7 @@
 
     <script src="controllers/HomeController.js"></script>
     <script src="controllers/LoginController.js"></script>
-    <script src="controllers/RegisterController.js"></script>      
+    <script src="controllers/RegisterController.js"></script>
 
     <script src="directives/recepie.js"></script>
 </body>

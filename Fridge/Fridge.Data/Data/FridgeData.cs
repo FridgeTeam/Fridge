@@ -5,6 +5,7 @@
     using Models;
     using Repositories;
     using Models.Social;
+    using Models.Contracts;
 
     public class FridgeData : IFridgeData
     {
@@ -39,7 +40,7 @@
 
         public IRepository<Category> Categories
         {
-            get { return this.GetRepository<Category>(); }
+            get { return this.GetPositionableRepository<Category>(); }
         }
 
         public IRepository<Comment> Comments
@@ -49,7 +50,7 @@
 
         public IRepository<Ingredient> Ingredients
         {
-            get { return this.GetRepository<Ingredient>(); }
+            get { return this.GetPositionableRepository<Ingredient>(); }
         }
 
         public IRepository<PreparationStep> PreparationSteps
@@ -71,7 +72,7 @@
         {
             get { return this.GetRepository<Unit>(); }
         }
-        
+
 
         public int SaveChanges()
         {
@@ -80,14 +81,31 @@
 
         private IRepository<T> GetRepository<T>() where T : class
         {
-            var modelType = typeof(T);
+            Type modelType = typeof(T);
             if (!this.repositories.ContainsKey(modelType))
             {
-                var repositoryType = typeof(Repository<T>);
+                Type repositoryType = typeof(Repository<T>);
                 this.repositories.Add(modelType, Activator.CreateInstance(repositoryType, this.context));
             }
 
             return (IRepository<T>)this.repositories[modelType];
+        }
+
+        private IRepository<T> GetPositionableRepository<T>() where T : class, IPositionable
+        {
+            Type modelType = typeof(T);
+            if (!this.repositories.ContainsKey(modelType))
+            {
+                Type type = typeof(PositionableRepository<T>);
+                this.repositories.Add(typeof(T), Activator.CreateInstance(type, this.context));
+            }
+
+            return (IRepository<T>)this.repositories[typeof(T)];
+        }
+
+        public void Dispose()
+        {
+            this.context.Dispose();
         }
     }
 }

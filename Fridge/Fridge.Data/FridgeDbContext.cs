@@ -20,21 +20,21 @@
             return new FridgeDbContext();
         }
 
-        public virtual IDbSet<UserSession> UserSessions { get; }
+        public virtual IDbSet<UserSession> UserSessions { get;  set; }
 
-        public virtual IDbSet<Category> Categories { get; }
+        public virtual IDbSet<Category> Categories { get;  set; }
 
-        public virtual IDbSet<Ingredient> Ingredients { get; }
+        public virtual IDbSet<Ingredient> Ingredients { get;  set; }
 
-        public virtual IDbSet<PreparationStep> PreparationSteps { get; }
+        public virtual IDbSet<PreparationStep> PreparationSteps { get;  set; }
 
-        public virtual IDbSet<Recipe> Recipes { get; }
+        public virtual IDbSet<Recipe> Recipes { get;  set; }
 
-        public virtual IDbSet<Unit> Units { get; }
+        public virtual IDbSet<Unit> Units { get;  set; }
 
-        public virtual IDbSet<Comment> Comments { get; }
+        public virtual IDbSet<Comment> Comments { get;  set; }
 
-        public virtual IDbSet<Rating> Ratings { get; }
+        public virtual IDbSet<Rating> Ratings { get;  set; }
 
         IDbSet<T> IFridgeDbContext.Set<T>()
         {

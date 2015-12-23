@@ -63,6 +63,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="controllers\RecepieController.js" />
     <Content Include="directives\Recepie.html" />
     <Content Include="directives\recepie.js" />
     <Content Include="packages.config" />
@@ -404,6 +405,7 @@
     <Content Include="templates\admin-menu-template.html" />
     <Content Include="views\home-view.html" />
     <Content Include="views\login-view.html" />
+    <Content Include="views\recepie-view.html" />
     <Content Include="views\register-view.html" />
     <Content Include="views\user\settings-view.html" />
     <Content Include="Web.config" />

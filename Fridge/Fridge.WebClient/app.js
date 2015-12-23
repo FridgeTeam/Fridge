@@ -1,6 +1,7 @@
 ﻿angular.module('app', [
     'ngRoute',
     'ngAnimate',
+    'ngSanitize',
     'ui.bootstrap'
 ])
 
@@ -27,6 +28,10 @@
          controller: 'LogoutController'
      })
 
+    .when('/recepie/:title', {
+        templateUrl: 'views/recepie-view.html',
+        controller: 'RecepieController'
+    })
 
 }])
 

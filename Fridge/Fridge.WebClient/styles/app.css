@@ -8,6 +8,11 @@
 }
 /*# sourceMappingURL=app.css.map */
 
+.breadcrumb > li + li:before {
+   color: #CCCCCC;
+   content: "> ";
+   padding: 0 5px;
+}
 
 .grid {
     border: solid 1px #ccc;
@@ -75,3 +80,9 @@
         -webkit-transform: scale(1);
         transform: scale(1);
     }
+
+
+.social-row img
+{
+    width: 5%;
+}

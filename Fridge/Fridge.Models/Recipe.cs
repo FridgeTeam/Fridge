@@ -1,25 +1,28 @@
 ﻿namespace Fridge.Models
-{
-    using Social;
+{   
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Social;
+
     public class Recipe
     {
-        private ICollection<Ingredient> ingredients;
+        private ICollection<IngredientRecipe> ingredientRecipes;
         private ICollection<PreparationStep> preparationSteps;
         private ICollection<User> preparedBy;
         private ICollection<Rating> ratings;
         private ICollection<Comment> comments;
+        private ICollection<Tag> tags;
 
         public Recipe()
         {
-            this.ingredients = new HashSet<Ingredient>();
+            this.ingredientRecipes = new HashSet<IngredientRecipe>();
             this.preparationSteps = new HashSet<PreparationStep>();
             this.preparedBy = new HashSet<User>();
             this.ratings = new HashSet<Rating>();
             this.comments = new HashSet<Comment>();
+            this.tags = new HashSet<Tag>();
         }
 
         public int Id { get; set; }
@@ -27,7 +30,7 @@
         [Required]
         public string Name { get; set; }
 
-        public string Description { get; set; }       
+        public string Description { get; set; }
 
         public string Image { get; set; }
 
@@ -43,10 +46,10 @@
 
         public User PostedBy { get; set; }
 
-        public virtual ICollection<Ingredient> Ingredients
+        public virtual ICollection<IngredientRecipe> IngredientRecipes
         {
-            get { return this.ingredients; }
-            set { this.ingredients = value; }
+            get { return this.ingredientRecipes; }
+            set { this.ingredientRecipes = value; }
         }
 
         public virtual ICollection<PreparationStep> PreparationSteps
@@ -71,6 +74,12 @@
         {
             get { return this.comments; }
             set { this.comments = value; }
+        }
+
+        public virtual ICollection<Tag> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
         }
     }
 }

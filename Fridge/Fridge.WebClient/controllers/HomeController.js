@@ -19,8 +19,8 @@
                 $(".grid").masonry();
             }, 200);
 
-            $(window).resize(function () {              
-                clearTimeout(id);               
+            $(window).resize(function () {
+                clearTimeout(id);
                 id = setTimeout(function () {
                     $(".grid").masonry();
                     console.log("asd");

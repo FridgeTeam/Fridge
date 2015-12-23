@@ -1,5 +1,6 @@
 ﻿namespace Fridge.Data
 {
+    using System;
     using System.Data.Entity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -20,21 +21,27 @@
             return new FridgeDbContext();
         }
 
-        public virtual IDbSet<UserSession> UserSessions { get;  set; }
+        public virtual IDbSet<UserSession> UserSessions { get; set; }
 
-        public virtual IDbSet<Category> Categories { get;  set; }
+        public virtual IDbSet<Category> Categories { get; set; }
 
-        public virtual IDbSet<Ingredient> Ingredients { get;  set; }
+        public virtual IDbSet<IngredientRecipe> IngredientRecipes { get; set; }
 
-        public virtual IDbSet<PreparationStep> PreparationSteps { get;  set; }
+        public virtual IDbSet<PreparationStep> PreparationSteps { get; set; }
 
-        public virtual IDbSet<Recipe> Recipes { get;  set; }
+        public virtual IDbSet<Recipe> Recipes { get; set; }
 
-        public virtual IDbSet<Unit> Units { get;  set; }
+        public virtual IDbSet<Unit> Units { get; set; }
 
-        public virtual IDbSet<Comment> Comments { get;  set; }
+        public virtual IDbSet<Comment> Comments { get; set; }
 
-        public virtual IDbSet<Rating> Ratings { get;  set; }
+        public virtual IDbSet<Rating> Ratings { get; set; }
+
+        public IDbSet<Ingredient> Ingredients { get; set; }
+
+        public IDbSet<Tag> Tags { get; set; }
+
+        public IDbSet<TagGroup> TagGroups { get; set; }
 
         IDbSet<T> IFridgeDbContext.Set<T>()
         {

@@ -46,9 +46,14 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,18 +71,26 @@
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\PositionableRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Seed\JsonModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Seed\recipes.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fridge.Common\Fridge.Common.csproj">
+      <Project>{e6a7c55c-c9a0-4c90-88c6-87682bcdede3}</Project>
+      <Name>Fridge.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fridge.Models\Fridge.Models.csproj">
       <Project>{422968aa-8827-4b3e-8b20-d57a6922b630}</Project>
       <Name>Fridge.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Seed\Images.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

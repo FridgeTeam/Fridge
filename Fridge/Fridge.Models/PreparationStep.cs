@@ -1,7 +1,7 @@
 ﻿namespace Fridge.Models
 {
-    using Fridge.Models.Contracts;
     using System.ComponentModel.DataAnnotations;
+    using Contracts;
 
     public class PreparationStep : IPositionable
     {
@@ -15,6 +15,5 @@
         public int RecipeId { get; set; }
 
         public Recipe Recipe { get; set; }
-
     }
 }

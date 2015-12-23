@@ -59,12 +59,15 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="Contracts\IPositionable.cs" />
+    <Compile Include="IngredientRecipe.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="PreparationStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="Social\Comment.cs" />
     <Compile Include="Social\Rating.cs" />
+    <Compile Include="Social\TagGroup.cs" />
+    <Compile Include="Social\Tag.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserSession.cs" />

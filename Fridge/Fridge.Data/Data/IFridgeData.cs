@@ -13,7 +13,7 @@
 
         IRepository<Category> Categories { get; }
 
-        IRepository<Ingredient> Ingredients { get; }
+        IRepository<IngredientRecipe> IngredientRecipes { get; }
 
         IRepository<PreparationStep> PreparationSteps { get; }
 
@@ -21,9 +21,15 @@
 
         IRepository<Unit> Units { get; }
 
+        IRepository<Ingredient> Ingredients { get; }
+
         IRepository<Comment> Comments { get; }
 
         IRepository<Rating> Ratings { get; }
+
+        IRepository<Tag> Tags { get; }
+
+        IRepository<TagGroup> TagGroups { get; }
 
         int SaveChanges();
     }

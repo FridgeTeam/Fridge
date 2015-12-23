@@ -48,9 +48,9 @@
             get { return this.GetRepository<Comment>(); }
         }
 
-        public IRepository<Ingredient> Ingredients
+        public IRepository<IngredientRecipe> Ingredients
         {
-            get { return this.GetPositionableRepository<Ingredient>(); }
+            get { return this.GetPositionableRepository<IngredientRecipe>(); }
         }
 
         public IRepository<PreparationStep> PreparationSteps
@@ -73,6 +73,25 @@
             get { return this.GetRepository<Unit>(); }
         }
 
+        public IRepository<IngredientRecipe> IngredientRecipes
+        {
+            get { return this.GetRepository<IngredientRecipe>(); }
+        }
+
+        IRepository<Ingredient> IFridgeData.Ingredients
+        {
+            get { return this.GetRepository<Ingredient>(); }
+        }
+
+        public IRepository<Tag> Tags
+        {
+            get { return this.GetRepository<Tag>(); }
+        }
+
+        public IRepository<TagGroup> TagGroups
+        {
+            get { return this.GetRepository<TagGroup>(); }
+        }
 
         public int SaveChanges()
         {

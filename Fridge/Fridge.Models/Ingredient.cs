@@ -1,25 +1,24 @@
-﻿namespace Fridge.Models
-{
-    using Fridge.Models.Contracts;
-    using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
-    public class Ingredient : IPositionable
+namespace Fridge.Models
+{
+    public class Ingredient
     {
+        private ICollection<IngredientRecipe> ingredientRecipes;
+
+        public Ingredient()
+        {
+            this.ingredientRecipes = new HashSet<IngredientRecipe>();
+        }
+
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
-        public Unit Unit { get; set; }
-
-        [Required]
-        public double Quantity { get; set; }
-
-        public int Position { get; set; }
-
-        public int RecipeId { get; set; }
-
-        public Recipe Recipe { get; set; }
+        public virtual ICollection<IngredientRecipe> IngredientRecipes
+        {
+            get { return this.ingredientRecipes; }
+            set { this.ingredientRecipes = value; }
+        }
     }
 }

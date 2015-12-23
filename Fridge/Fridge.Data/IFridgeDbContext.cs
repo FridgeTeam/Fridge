@@ -15,7 +15,7 @@
 
         IDbSet<Category> Categories { get; }
 
-        IDbSet<Ingredient> Ingredients { get; }
+        IDbSet<IngredientRecipe> IngredientRecipes { get; }
 
         IDbSet<PreparationStep> PreparationSteps { get; }
 
@@ -23,9 +23,15 @@
 
         IDbSet<Unit> Units { get; }
 
+        IDbSet<Ingredient> Ingredients { get; }
+
         IDbSet<Comment> Comments { get; }
 
         IDbSet<Rating> Ratings { get; }
+
+        IDbSet<Tag> Tags { get; }
+
+        IDbSet<TagGroup> TagGroups { get; }
 
         int SaveChanges();
 

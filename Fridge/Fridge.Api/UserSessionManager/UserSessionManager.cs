@@ -35,7 +35,7 @@ namespace Fridge.Api.UserSessionManager
                 AccessToken = accessToken
             };
 
-            userSession.ExpirationDate = DateTime.Now + Common.Constants.DefaultUserSessionTimeout;
+            userSession.ExpirationDate = DateTime.Now + Common.GlobalConstants.DefaultUserSessionTimeout;
             this.Data.UserSessions.Add(userSession);
             this.Data.SaveChanges();
         }
@@ -57,7 +57,7 @@ namespace Fridge.Api.UserSessionManager
                 return false;
             }
 
-            userSession.ExpirationDate = DateTime.Now + Common.Constants.DefaultUserSessionTimeout;
+            userSession.ExpirationDate = DateTime.Now + Common.GlobalConstants.DefaultUserSessionTimeout;
             this.Data.SaveChanges();
 
             return true;

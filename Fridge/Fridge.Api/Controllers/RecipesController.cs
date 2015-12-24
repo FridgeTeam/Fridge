@@ -9,7 +9,10 @@
     using BindingModels;
     using ViewModels.Home;
     using AutoMapper.QueryableExtensions;
+    using System.Collections.Generic;
+    using System;
 
+    [RoutePrefix("api/Recipes")]
     public class RecipesController : BaseApiController
     {
         // GET: api/Recipes
@@ -19,6 +22,44 @@
         {
             IQueryable<RecepieViewModel> model = this.Data.Recipes.All().ProjectTo<RecepieViewModel>();
             return this.OKWithPagingAndSorting(pagingModel, model);
+        }
+
+        // GET: api/Recipes
+        [HttpGet]
+        [ResponseType(typeof(RecepieViewModel))]
+        [Route("Random")]
+        public IHttpActionResult RandomRecipes(int count)
+        {
+            int from = this.Data.Recipes.All().Min(x => x.Id);
+            int to = this.Data.Recipes.All().Max(x => x.Id) + 1;
+            int countAll = this.Data.Recipes.All().Count();
+            IQueryable<RecepieViewModel> model = null;
+
+            if (countAll <= count)
+            {
+                model = this.Data.Recipes.All().ProjectTo<RecepieViewModel>();
+                return this.Ok(model);
+            }
+
+            HashSet<int> ids = new HashSet<int>();
+            Random rand = new Random();
+
+            for (int i = 0; i < count; i++)
+            {
+                int randNum = rand.Next(from, to);
+                bool isExist = this.Data.Recipes.All().Where(x => x.Id == randNum).Any();
+                if (isExist && !ids.Contains(randNum))
+                {
+                    ids.Add(randNum);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+
+            model = this.Data.Recipes.All().Where(x => ids.Contains(x.Id)).ProjectTo<RecepieViewModel>();
+            return this.Ok(model);
         }
 
         // GET: api/Recipes/5

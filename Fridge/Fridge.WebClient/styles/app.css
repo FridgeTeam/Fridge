@@ -9,15 +9,38 @@
 /*# sourceMappingURL=app.css.map */
 
 .breadcrumb > li + li:before {
-   color: #CCCCCC;
-   content: "> ";
-   padding: 0 5px;
+    color: #CCCCCC;
+    content: "> ";
+    padding: 0 5px;
+}
+
+.social-row img {
+    width: 5%;
 }
 
 
+/* Really Small devices (tablets, 768px and up)  => 1 element */
+.my-carousel {
+    margin: 0 0 1px 1px;
+}
 
+/* Small devices (tablets, 768px and up)  => 2 elements */
+@media (min-width: 768px) {
+    .my-carousel {
+        margin: 0 0 1px 1px;
+    }
+}
 
-.social-row img
-{
-    width: 5%;
+/* Medium devices (desktops, 992px and up)  => 3 elements  */
+@media (min-width: 992px) {
+    .my-carousel {
+        margin: 0 0 10px 10px;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) => 4 elements */
+@media (min-width: 1200px) {
+    .my-carousel {
+        margin: 0 0 10px 10px;
+    }
 }

@@ -11,9 +11,14 @@
             return requester.get(url);
         },
 
-        //int : page
-        getRecipesWithPaging: function (page) {
-            url = baseUrl + 'recipes?StartPage=' + page;
+        /*Recipes*/
+        getRecipesWithPaging: function (pageNumber) {
+            url = baseUrl + 'recipes?StartPage=' + pageNumber;
+            return requester.get(url);
+        },
+
+        getRandomRecipes: function (count) {
+            url = baseUrl + 'recipes/random?count=' + count;
             return requester.get(url);
         },
 

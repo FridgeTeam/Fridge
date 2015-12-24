@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Web.Http;
-using System.Web;
-
-using Microsoft.AspNet.Identity.EntityFramework;
-using Fridge.Models;
-using Fridge.Data.Data;
-using Fridge.Data;
-using Fridge.Api.BindingModels.User;
-using Fridge.Api.UserSessionManager;
-using System.Net;
-using Newtonsoft.Json;
-
-namespace Fridge.Api.Controllers
+﻿namespace Fridge.Api.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Threading;
+    using System.Web.Http;
+    using System.Web;
+
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Fridge.Models;
+    using Fridge.Data.Data;
+    using Fridge.Data;
+    using Fridge.Api.BindingModels.User;
+    using Fridge.Api.UserSessionManager;
+    using System.Net;
+    using Newtonsoft.Json;
+
     [RoutePrefix("api/user")]
     public class UserController : BaseApiController
     {
@@ -35,7 +35,7 @@ namespace Fridge.Api.Controllers
         {
             this.userManager = new ApplicationUserManager(
                 new UserStore<User>(new FridgeDbContext()));
-            this.userSessionManager = new UserSessionManager.UserSessionManager(this.Data);
+            this.userSessionManager = new UserSessionManager(this.Data);
         }
 
         public ApplicationUserManager UserManager

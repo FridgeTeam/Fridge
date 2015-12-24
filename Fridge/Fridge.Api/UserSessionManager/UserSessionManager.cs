@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
-
-using Microsoft.AspNet.Identity;
-using Fridge.Data.Data;
-using Fridge.Models;
-
-namespace Fridge.Api.UserSessionManager
+﻿namespace Fridge.Api.UserSessionManager
 {
+    using System;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Web;
+
+    using Microsoft.AspNet.Identity;
+    using Fridge.Data.Data;
+    using Fridge.Models;
+
     public class UserSessionManager : IUserSessionManager
     {
         public UserSessionManager(IFridgeData data)

@@ -13,14 +13,11 @@ namespace Fridge.Data.Migrations
     using System.IO;
     using Newtonsoft.Json;
     using Models.Social;
-    using System.Reflection;
-    using System.Web;
-    using System.Web.Hosting;
 
     public sealed class Configuration : DbMigrationsConfiguration<FridgeDbContext>
     {
         private Random random = new Random();
-        private string  imagesFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\Images.json";
+        private string imagesFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\Images.json";
         private string recipesFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\recipes.json";
 
         public Configuration()
@@ -43,56 +40,41 @@ namespace Fridge.Data.Migrations
             this.SeedRecipes(context);
         }
 
-        private void SeedRecipes(FridgeDbContext context)
+        private List<Category> SeedCategories(FridgeDbContext context)
         {
-          
-            string imagesStr = File.ReadAllText(imagesFilePath);
-            string recipesStr = File.ReadAllText(recipesFilePath);
-            List<ImageModel> images = JsonConvert.DeserializeObject<List<ImageModel>>(imagesStr);
-            List<RecipeJsonModel> recipes = JsonConvert.DeserializeObject<List<RecipeJsonModel>>(recipesStr);
 
+            List<Category> categories = new List<Category>();
+            List<string> categoryNames = new List<string>() { "Chicken", "Main Dish", "Salad", "Quick", "Desert", "Healthy" };
 
-            foreach (var recipeObj in recipes)
+            int position = categoryNames.Count;
+            foreach (var name in categoryNames)
             {
-                Recipe recipe = new Recipe()
-                {
-                    Name = recipeObj.Title,
-                    Image = images[random.Next(0, images.Count)].Image,
-                    Description = recipeObj.Description
-                };
-
-                int ingredientPosition = 1;
-                foreach (var ingredient in recipeObj.Ingredients)
-                {
-                    IngredientRecipe ingredientRecipe = new IngredientRecipe() { Text = ingredient, Position = ingredientPosition++ };
-                    recipe.IngredientRecipes.Add(ingredientRecipe);
-                }
-
-                int preparationStep = 1;
-                foreach (var instuction in recipeObj.Instructions)
-                {
-                    PreparationStep step = new PreparationStep() { Text = instuction, Position = preparationStep++ };
-                    recipe.PreparationSteps.Add(step);
-                }
-
-                foreach (var tagObj in recipeObj.Tags)
-                {
-                    Tag tag = context.Tags.FirstOrDefault(x => x.Name == tagObj);
-                    if (tag == null)
-                    {
-                        tag = new Tag();
-                        tag.Name = tagObj;
-                        context.Tags.Add(tag);
-                        context.SaveChanges();
-                    }
-
-                    recipe.Tags.Add(tag);
-
-                }
-
-                context.Recipes.Add(recipe);
-                context.SaveChanges();
+                Category category = new Category();
+                category.Name = name;
+                category.Position = position--;
+                categories.Add(category);
+                context.Categories.Add(category);
             }
+
+            context.SaveChanges();
+            return categories;
+        }
+
+        private List<Unit> SeedUnits(FridgeDbContext context)
+        {
+            List<Unit> units = new List<Unit>();
+            List<string> unitNames = new List<string>() { "kg", "g", "ml", "l", "cup" };
+
+            foreach (var name in unitNames)
+            {
+                Unit unit = new Unit();
+                unit.Name = name;
+                units.Add(unit);
+                context.Units.Add(unit);
+            }
+
+            context.SaveChanges();
+            return units;
         }
 
         private List<User> SeedUsers(FridgeDbContext context)
@@ -180,41 +162,57 @@ namespace Fridge.Data.Migrations
             return ingredients;
         }
 
-        private List<Unit> SeedUnits(FridgeDbContext context)
+        private void SeedRecipes(FridgeDbContext context)
         {
-            List<Unit> units = new List<Unit>();
-            List<string> unitNames = new List<string>() { "kg", "g", "ml", "l", "cup" };
+            string imagesStr = File.ReadAllText(imagesFilePath);
+            string recipesStr = File.ReadAllText(recipesFilePath);
+            List<ImageModel> images = JsonConvert.DeserializeObject<List<ImageModel>>(imagesStr);
+            List<RecipeJsonModel> recipes = JsonConvert.DeserializeObject<List<RecipeJsonModel>>(recipesStr).Take(30).ToList();
 
-            foreach (var name in unitNames)
+
+            foreach (var recipeObj in recipes)
             {
-                Unit unit = new Unit();
-                unit.Name = name;
-                units.Add(unit);
-                context.Units.Add(unit);
-            }
+                Recipe recipe = new Recipe()
+                {
+                    Name = recipeObj.Title,
+                    Image = images[random.Next(0, images.Count)].Image,
+                    Description = recipeObj.Description
+                };
 
-            context.SaveChanges();
-            return units;
+                int ingredientPosition = 1;
+                foreach (var ingredient in recipeObj.Ingredients)
+                {                  
+                    IngredientRecipe ingredientRecipe = new IngredientRecipe() { Text = ingredient, Position = ingredientPosition++ };
+                    recipe.IngredientRecipes.Add(ingredientRecipe);
+                }
+
+                int preparationStep = 1;
+                foreach (var instuction in recipeObj.Instructions)
+                {
+                    PreparationStep step = new PreparationStep() { Text = instuction, Position = preparationStep++ };
+                    recipe.PreparationSteps.Add(step);
+                }
+
+                foreach (var tagObj in recipeObj.Tags)
+                {
+                    Tag tag = context.Tags.FirstOrDefault(x => x.Name == tagObj);
+                    if (tag == null)
+                    {
+                        tag = new Tag();
+                        tag.Name = tagObj;
+                        context.Tags.Add(tag);
+                        context.SaveChanges();
+                    }
+
+                    recipe.Tags.Add(tag);
+
+                }
+
+                context.Recipes.Add(recipe);
+                context.SaveChanges();
+            }
         }
 
-        private List<Category> SeedCategories(FridgeDbContext context)
-        {
 
-            List<Category> categories = new List<Category>();
-            List<string> categoryNames = new List<string>() { "Chicken", "Main Dish", "Salad", "Quick", "Desert", "Healthy" };
-
-            int position = categoryNames.Count;
-            foreach (var name in categoryNames)
-            {
-                Category category = new Category();
-                category.Name = name;
-                category.Position = position--;
-                categories.Add(category);
-                context.Categories.Add(category);
-            }
-
-            context.SaveChanges();
-            return categories;
-        }  
     }
 }

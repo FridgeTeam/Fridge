@@ -46,7 +46,8 @@
         </div>-->
 
         <ul class="grid" masonry="true">
-            <li ng-repeat="recepie in recepies">
+            <li ng-repeat="recepie in recepies track by $index">
+                <div>{{recepie.Name}}</div>
                 <div recipe datasource="recepie"></div>
             </li>
         </ul>

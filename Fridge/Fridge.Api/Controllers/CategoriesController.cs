@@ -12,19 +12,26 @@
     using System.Web.Http.Description;
     using Fridge.Data;
     using Fridge.Models;
+    using Common;
+    using ViewModels;
+    using AutoMapper.QueryableExtensions;
 
+    [Authorize(Roles = GlobalConstants.AdminRole)]
     public class CategoriesController : BaseApiController
     {
         private const string ModelName = "job title";
 
         // GET: api/Categories
+        [AllowAnonymous]
         [HttpGet]
-        public IQueryable<Category> GetCategories()
+        [ResponseType(typeof(CategoriesViewModel))]
+        public IQueryable<CategoriesViewModel> GetCategories()
         {
-            return this.Data.Categories.All();
+            return this.Data.Categories.All().ProjectTo<CategoriesViewModel>();
         }
 
         // GET: api/Categories/5
+        [AllowAnonymous]
         [HttpGet]
         [ResponseType(typeof(Category))]
         public IHttpActionResult GetCategory(int id)
@@ -41,16 +48,16 @@
         // PUT: api/Categories/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCategory(int id, Category category)
+        public IHttpActionResult Edit(int id, Category category)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
             if (id != category.Id)
             {
-                return BadRequest();
+                return this.BadRequest();
             }
 
             this.Data.Categories.Update(category);
@@ -61,9 +68,9 @@
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                if (!this.CategoryExists(id))
                 {
-                    return NotFound();
+                    return this.NotFound();
                 }
                 else
                 {
@@ -71,7 +78,7 @@
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return this.StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Categories
@@ -79,15 +86,15 @@
         [ResponseType(typeof(Category))]
         public IHttpActionResult PostCategory(Category category)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return this.BadRequest(this.ModelState);
             }
 
             this.Data.Categories.Add(category);
             this.Data.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = category.Id }, category);
+            return this.CreatedAtRoute("DefaultApi", new { id = category.Id }, category);
         }
 
         // DELETE: api/Categories/5
@@ -104,8 +111,8 @@
             this.Data.Categories.Delete(category);
             this.Data.SaveChanges();
 
-            return Ok(category);
-        }       
+            return this.Ok(category);
+        }
 
         private bool CategoryExists(int id)
         {

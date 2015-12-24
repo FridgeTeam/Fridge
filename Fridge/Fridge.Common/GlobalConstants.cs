@@ -6,6 +6,6 @@ namespace Fridge.Common
     {
         public static readonly TimeSpan DefaultUserSessionTimeout = new TimeSpan(0, 30, 0);
 
-        public static readonly string AdminRole = "Administrator";
+        public const string AdminRole = "Administrator";
     }
 }

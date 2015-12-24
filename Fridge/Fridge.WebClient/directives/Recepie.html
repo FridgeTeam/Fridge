@@ -1,14 +1,14 @@
 ﻿<div class="panel panel-default">
     <div class="panel-heading">
-        <img src="{{ datasource.image }}" style="width: 100%" />
+        <img ng-src="{{ datasource.Image }}" style="width: 100%" />
     </div>
     <div class="panel-body">
-        <a href="#/recepie/{{ datasource.title }}" style="font-weight: bold; text-decoration: none;">{{ datasource.title }}</a>
+        <a href="#/recepie/{{ datasource.Id }}" style="font-weight: bold; text-decoration: none;">{{ datasource.Name }}</a>
         <p>
-            {{ datasource.description }}
+            {{ datasource.Description }}
         </p>
     </div>
     <div class="panel-footer">
-        Recipe by <a href="#/">{{ datasource.chef }}</a>
+        Recipe by <a href="#/">{{ datasource.FromUsername }}</a>
     </div>
 </div>

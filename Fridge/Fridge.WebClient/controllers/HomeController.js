@@ -3,21 +3,30 @@
 
 angular.module('app')
 
-.controller('HomeController', function ($scope, $rootScope, publicRequests) {
+.controller('HomeController', function ($scope, $rootScope, publicRequests, pagination) {
+
+    $scope.pagination = pagination;
+    $scope.pagination.bigCurrentPage = 1;  //setup for Pagination (ui.bootstrap.pagination)
+
     $scope.recepies = [];
-    $scope.currentPage = 1;
+
     $scope.numPages = 0;
     $scope.numItems = 0;
 
+  
 
-    publicRequests.getRecipesWithPaging($scope.currentPage)
-    .success(function (data) {
-        $scope.recepies = data.Result;
-        $scope.numPages = data.NumPages;
-        $scope.numItems = data.NumItems;
-        $scope.fixLayot();
-    })
+    $scope.getData = function () {
+        publicRequests.getRecipesWithPaging($scope.pagination.bigCurrentPage)
+        .success(function (data) {
+           $scope.recepies = data.Result;
+           $scope.numPages = data.NumPages;
+           $scope.numItems = data.NumItems;
+           $scope.pagination.bigTotalItems = $scope.numPages * 10;  //setup for Pagination 
+           $scope.fixLayot();
+       })
+    }   
 
+    
     $scope.fixLayot = function () {
         var id;
         $(function () {
@@ -35,38 +44,7 @@ angular.module('app')
 
         })
     }
-    $scope.getMoreRecipes = function () {
-        $scope.currentPage++;
-      
-        publicRequests.getRecipesWithPaging($scope.currentPage)
-        .success(function (data) {
-            $scope.recepies = $scope.recepies.concat(data.Result);
-        })
-    }
 
-    $(window).scroll(function (e) {
-        var body = document.body;
-        var scrollTop = this.pageYOffset || body.scrollTop;
-        
-        if ($scope.currentPage > $scope.numPages) {
-            return;
-        }
-        console.log(body.scrollHeight);
-        console.log(scrollTop);
-        console.log(parseFloat(body.clientHeight));
-
-        console.log(body.scrollHeight - scrollTop);
-
-        var $body = $('body');
-        if ((($body.get(0).scrollHeight - $body.scrollTop()) == $body.height())) {
-            console.log($scope.currentPage);
-
-            $scope.getMoreRecipes();
-        }
-
-        if (body.scrollHeight - scrollTop  <= 10) {
-          
-           
-        }
-    });
+    //start point for controller
+    $scope.getData();    
 });

@@ -64,8 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="controllers\RecepieController.js" />
-    <Content Include="directives\Recepie.html" />
-    <Content Include="directives\recepie.js" />
+    <Content Include="directives\masonry.js" />
+    <Content Include="directives\recipe.html" />
+    <Content Include="directives\recipe.js" />
     <Content Include="packages.config" />
     <Content Include="bower.json" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -74,6 +75,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="services\components\datepicker.js" />
     <Content Include="services\components\pagination.js" />
+    <Content Include="styles\masonry.css" />
     <Content Include="styles\theme.css.map" />
     <Content Include="bower_components\angular-animate\.bower.json" />
     <Content Include="bower_components\angular-animate\angular-animate.min.js.map" />

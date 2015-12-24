@@ -14,72 +14,7 @@
    padding: 0 5px;
 }
 
-.grid {
-    border: solid 1px #ccc;
-    padding: 10px 10px 0 0;
-    list-style-type: none;
-}
 
-    .grid li {
-        /*display: inline-block;*/
-        width: 98%;
-        /*// height: 100px;*/
-        margin: 0 0 1px 1px;
-    }
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-    .grid li {
-        width: 49%;
-        margin: 0 0 1px 1px;
-    }
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .grid li {
-        width: 31%;
-        margin: 0 0 1px 1px;
-    }
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    .grid li {
-        width: 22%;
-        margin: 0 0 10px 10px;
-    }
-}
-
-/**** Transitions ****/
-
-.masonry,
-.masonry li { /* apply before masonry add class */
-    position: absolute; /* important to add it before enter animation start */
-    -webkit-transition-duration: .7s;
-    transition-duration: .7s;
-    -webkit-transition-property: all;
-    transition-property: all;
-}
-
-    .masonry .masonry-enter { /* limit animated properties for entering elements */
-        -webkit-transition-property: -webkit-transform, opacity;
-        transition-property: transform, opacity;
-    }
-
-.masonry-enter,
-.masonry-leave.masonry-leave-active {
-    opacity: 0;
-    -webkit-transform: scale(0.1);
-    transform: scale(0.1);
-}
-
-    .masonry-leave,
-    .masonry-enter.masonry-enter-active {
-        opacity: 1;
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
 
 
 .social-row img

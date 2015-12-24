@@ -1,7 +1,31 @@
 ﻿angular.module('app')
-.directive("masonry", function () {
+.directive("ngMasonry", function () {
     var NGREPEAT_SOURCE_RE = '<!-- ngRepeat: ((.*) in ((.*?)( track by (.*))?)) -->';
     return {
+        controller: ['$scope', function ($scope) {
+            function init() {
+                var setTimeoutId;
+                $(function () {
+                    //when all DOM is render adjust masonry element 
+                    setTimeout(function () {
+                        $(".grid").masonry();
+                    }, 200);
+
+                    //on screen resize adjust masonry element
+                    $(window).resize(function () {
+                        clearTimeout(setTimeoutId);
+                        setTimeoutId = setTimeout(function () {
+                            $(".grid").masonry();
+                            console.log("asd");
+                        }, 1000);
+                    });
+
+                })
+            }
+
+            init();
+
+        }],
         compile: function (element, attrs) {
             // auto add animation to brick element
             var animation = attrs.ngAnimate || "'masonry'";
@@ -53,11 +77,3 @@
         }
     };
 })
-.directive('recipe', function () {
-    return {
-        scope: {
-            datasource: '='
-        },
-        templateUrl: 'directives/Recepie.html'
-    };
-});

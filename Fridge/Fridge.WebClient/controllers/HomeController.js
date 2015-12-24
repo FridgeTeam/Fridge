@@ -8,41 +8,15 @@ angular.module('app')
     $scope.pagination = pagination;
     $scope.pagination.bigCurrentPage = 1;  //setup for Pagination (ui.bootstrap.pagination)
 
-    $scope.recepies = [];
-
-    $scope.numPages = 0;
-    $scope.numItems = 0;
-
-  
+    $scope.recipes = [];
+    
 
     $scope.getData = function () {
         publicRequests.getRecipesWithPaging($scope.pagination.bigCurrentPage)
         .success(function (data) {
-           $scope.recepies = data.Result;
-           $scope.numPages = data.NumPages;
-           $scope.numItems = data.NumItems;
-           $scope.pagination.bigTotalItems = $scope.numPages * 10;  //setup for Pagination 
-           $scope.fixLayot();
+           $scope.recipes = data.Result;          
+           $scope.pagination.bigTotalItems = data.NumPages * 10;  //setup for Pagination           
        })
-    }   
-
-    
-    $scope.fixLayot = function () {
-        var id;
-        $(function () {
-            setTimeout(function () {
-                $(".grid").masonry();
-            }, 200);
-
-            $(window).resize(function () {
-                clearTimeout(id);
-                id = setTimeout(function () {
-                    $(".grid").masonry();
-                    console.log("asd");
-                }, 1000);
-            });
-
-        })
     }
 
     //start point for controller

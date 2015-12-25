@@ -1,6 +1,6 @@
 ﻿angular.module('app')
 
-.factory('pagination', function () {
+.factory('pagination', function ($location) {
     var pagination = {
         bigTotalItems: 0,
         bigCurrentPage: 1,  //setup for Pagination (ui.bootstrap.pagination)
@@ -9,6 +9,7 @@
             pagination.bigCurrentPage = pageNo;
         },
         pageChanged: function (requestFunc) {  //setup for Pagination (ui.bootstrap.pagination)
+            sessionStorage["pageNo"] = pagination.bigCurrentPage;
             requestFunc();
         }
     }

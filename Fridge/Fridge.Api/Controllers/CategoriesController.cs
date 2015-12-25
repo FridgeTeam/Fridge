@@ -19,8 +19,6 @@
     [Authorize(Roles = GlobalConstants.AdminRole)]
     public class CategoriesController : BaseApiController
     {
-        private const string ModelName = "job title";
-
         // GET: api/Categories
         [AllowAnonymous]
         [HttpGet]

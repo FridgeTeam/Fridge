@@ -301,8 +301,9 @@
     <Compile Include="UserSessionManager\SessionAuthorizeAttribute.cs" />
     <Compile Include="UserSessionManager\UserSessionManager.cs" />
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
-    <Compile Include="ViewModels\Home\RecepieViewModel.cs" />
+    <Compile Include="ViewModels\Home\RecepiesViewModel.cs" />
     <Compile Include="ViewModels\IPageable.cs" />
+    <Compile Include="ViewModels\Recipe\RecipeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

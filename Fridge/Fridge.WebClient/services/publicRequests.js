@@ -22,6 +22,11 @@
             return requester.get(url);
         },
 
+        getRecipeByName: function (recipeName) {
+            url = baseUrl + 'recipes?recipeName=' + recipeName;
+            return requester.get(url);
+        },
+
 
     };
 

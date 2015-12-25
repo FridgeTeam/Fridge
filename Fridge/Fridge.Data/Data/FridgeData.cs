@@ -65,7 +65,7 @@
 
         public IRepository<Recipe> Recipes
         {
-            get { return this.GetRepository<Recipe>(); }
+            get { return this.GetPositionableRepository<Recipe>(); }
         }
 
         public IRepository<Unit> Units

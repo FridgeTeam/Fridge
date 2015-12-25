@@ -49,7 +49,7 @@
         // POST api/User/Register
         [HttpPost]
         [AllowAnonymous]
-        [ActionName("Register")]
+        [Route("Register")]
         public async Task<HttpResponseMessage> RegisterUser(RegisterBindingModel userData)
         {
             if (!ModelState.IsValid)
@@ -83,7 +83,7 @@
         // POST api/User/Login
         [HttpPost]
         [AllowAnonymous]
-        [ActionName("Login")]
+        [Route("Login")]
         public async Task<HttpResponseMessage> LoginUser(LoginBindingModel loginData)
         {
             if (loginData == null)

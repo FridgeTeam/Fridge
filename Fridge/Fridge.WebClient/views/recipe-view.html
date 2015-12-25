@@ -4,25 +4,25 @@
             <div class="row">
                 <ol class="breadcrumb">
                     <li><a href="#/">Home</a></li>
-                    <li><a href="#/recepies">Recepies</a></li>
-                    <li class="active">{{ recepie.Title }}</li>
+                    <li><a href="#/recipes">Recipes</a></li>
+                    <li class="active">{{ recipe.Name }}</li>
                 </ol>
             </div>
 
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ recepie.Image }}" alt="recepie" />
+                    <img ng-src="{{ recipe.Image }}" alt="recipe" />
                 </div>
                 <div class="col-md-8">
-                    <h3>{{ recepie.Title }}</h3>
+                    <h3>{{ recipe.Name }}</h3>
 
                     <div class="media">
                         <div class="media-left">
-                            <a href="#/"><img class="media-object" src="{{ recepie.Chef.Image }}" alt="chef"></a>
+                            <a href="#/"><img class="media-object" src="{{ recipe.Chef.Image }}" alt="chef"></a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"><a href="#/">{{ recepie.Chef.Name }}</a></h4>
-                            <p>"{{ recepie.Description }}"</p>
+                            <h4 class="media-heading"><a href="#/">{{ recipe.Chef.Name }}</a></h4>
+                            <p>"{{ recipe.Description }}"</p>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                 <h1>Ingredients</h1>
                 <hr />
                 <ul>
-                    <li ng-repeat="ingredient in recepie.Ingredients" ng-bind-html="ingredient">
+                    <li ng-repeat="ingredient in recipe.Ingredients" ng-bind-html="ingredient">
                         {{ ingredient }}
                     </li>
                 </ul>
@@ -57,7 +57,7 @@
                 <h1>Instructions</h1>
                 <hr />
                 <ol>
-                    <li ng-repeat="instruction in recepie.Instructions" ng-bind-html="instruction">
+                    <li ng-repeat="instruction in recipe.Instructions" ng-bind-html="instruction">
                         {{ instruction }}
                     </li>
                 </ol>
@@ -91,12 +91,12 @@
             </div>
         </div>
         <div class="col-md-3">
-            <h3>Related recepies</h3>
+            <h3>Related recipes</h3>
             <hr />
 
-            <li ng-repeat="recepie in relativeRecepies" style="list-style: none;">
-                <div recipe datasource="recepie"></div>
-            </li>
+            <div ng-repeat="relativeRecipe in relativeRecipes">
+                <div ng-recipe datasource="relativeRecipe"></div>
+            </div>
         </div>
     </div>
 </div>

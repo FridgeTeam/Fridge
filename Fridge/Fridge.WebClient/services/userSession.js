@@ -26,7 +26,8 @@
                if (userSession.getCurrentUser()) {
                    return userSession.getCurrentUser().isAdmin === 'true';
                }
-           }
+           },           
+
        };
 
        return userSession;

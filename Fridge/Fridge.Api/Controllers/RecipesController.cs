@@ -11,33 +11,35 @@
     using AutoMapper.QueryableExtensions;
     using System.Collections.Generic;
     using System;
-
+    using ViewModels.Recipe;
     [RoutePrefix("api/Recipes")]
     public class RecipesController : BaseApiController
     {
+        private const string ModelName = "recipe";
+
         // GET: api/Recipes
         [HttpGet]
-        [ResponseType(typeof(RecepieViewModel))]
+        [ResponseType(typeof(RecepiesViewModel))]
         public IHttpActionResult GetRecipes([FromUri]PageableBindingModel pagingModel)
         {
-            IQueryable<RecepieViewModel> model = this.Data.Recipes.All().ProjectTo<RecepieViewModel>();
+            IQueryable<RecepiesViewModel> model = this.Data.Recipes.All().ProjectTo<RecepiesViewModel>();
             return this.OKWithPagingAndSorting(pagingModel, model);
         }
 
         // GET: api/Recipes
         [HttpGet]
-        [ResponseType(typeof(RecepieViewModel))]
+        [ResponseType(typeof(RecepiesViewModel))]
         [Route("Random")]
         public IHttpActionResult RandomRecipes(int count)
         {
             int from = this.Data.Recipes.All().Min(x => x.Id);
             int to = this.Data.Recipes.All().Max(x => x.Id) + 1;
             int countAll = this.Data.Recipes.All().Count();
-            IQueryable<RecepieViewModel> model = null;
+            IQueryable<RecepiesViewModel> model = null;
 
             if (countAll <= count)
             {
-                model = this.Data.Recipes.All().ProjectTo<RecepieViewModel>();
+                model = this.Data.Recipes.All().ProjectTo<RecepiesViewModel>();
                 return this.Ok(model);
             }
 
@@ -58,7 +60,23 @@
                 }
             }
 
-            model = this.Data.Recipes.All().Where(x => ids.Contains(x.Id)).ProjectTo<RecepieViewModel>();
+            model = this.Data.Recipes.All().Where(x => ids.Contains(x.Id)).ProjectTo<RecepiesViewModel>();
+            return this.Ok(model);
+        }
+
+        // GET: api/Recipes/name
+        [HttpGet]
+        [ResponseType(typeof(RecipeViewModel))]
+        public IHttpActionResult GetRecipesByName(string recipeName)
+        {
+            string name = recipeName.Replace("-", " ");
+            RecipeViewModel model = this.Data.Recipes.All()
+                .Where(x => x.Name == name)
+                .ProjectTo<RecipeViewModel>()
+                .FirstOrDefault();
+
+            this.CheckModelForNull(model, ModelName);
+
             return this.Ok(model);
         }
 

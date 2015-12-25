@@ -1,12 +1,13 @@
 ﻿namespace Fridge.Models
-{   
+{
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using Social;
+    using Contracts;
 
-    public class Recipe
+    public class Recipe : IPositionable
     {
         private ICollection<IngredientRecipe> ingredientRecipes;
         private ICollection<PreparationStep> preparationSteps;
@@ -46,6 +47,8 @@
 
         public User PostedBy { get; set; }
 
+        public int Position { get; set; }
+
         public virtual ICollection<IngredientRecipe> IngredientRecipes
         {
             get { return this.ingredientRecipes; }
@@ -81,5 +84,7 @@
             get { return this.tags; }
             set { this.tags = value; }
         }
+
+        
     }
 }

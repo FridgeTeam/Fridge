@@ -112,50 +112,40 @@
 
         protected IHttpActionResult OKWithPagingAndSorting<T>(IPageableBindingModel model, IQueryable<T> sourceObject)
         {
-            try
+            //if is not ordered use default ordering
+            if (!sourceObject.Expression.ToString().Contains("OrderBy"))
             {
-                if (model.OrderBy == null)
+                try
                 {
-                    try
+                    if (model.OrderBy == null)
                     {
                         sourceObject = sourceObject.OrderByDescending("Id");
                     }
-                    catch (Exception)
-                    {
-                        try
-                        {
-                            sourceObject = sourceObject.OrderByDescending("PhoneId");
-                        }
-                        catch (Exception)
-                        {
-
-                            throw;
-                        }
-                    }
-                }
-                else
-                {
-                    string[] orderParameter = model.OrderBy.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (string.Equals(orderParameter[1], "asc", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        sourceObject = sourceObject.OrderBy(orderParameter[0]);
-                    }
-                    else if (string.Equals(orderParameter[1], "desc", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        sourceObject = sourceObject.OrderByDescending(orderParameter[0]);
-                    }
                     else
                     {
-                        return this.Content(HttpStatusCode.BadRequest, new { Message = "Bad order." });
+                        string[] orderParameter = model.OrderBy.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (string.Equals(orderParameter[1], "asc", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            sourceObject = sourceObject.OrderBy(orderParameter[0]);
+                        }
+                        else if (string.Equals(orderParameter[1], "desc", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            sourceObject = sourceObject.OrderByDescending(orderParameter[0]);
+                        }
+                        else
+                        {
+                            return this.Content(HttpStatusCode.BadRequest, new { Message = "Bad order." });
+                        }
                     }
                 }
-            }
-            catch (Exception)
-            {
+                catch (Exception)
+                {
 
-                return this.Content(HttpStatusCode.BadRequest, new { Message = "Invalid sorting." });
+                    return this.Content(HttpStatusCode.BadRequest, new { Message = "Invalid sorting." });
+                }
             }
+
 
             // Apply paging: find the requested page (by given start page and page size)
             int pageSize = 20;
@@ -163,14 +153,14 @@
             {
                 pageSize = model.PageSize.Value;
             }
-            var numItems = sourceObject.Count();
-            var numPages = (numItems + pageSize - 1) / pageSize;
+            int numItems = sourceObject.Count();
+            int numPages = (numItems + pageSize - 1) / pageSize;
             if (model.StartPage.HasValue)
             {
                 sourceObject = sourceObject.Skip(pageSize * (model.StartPage.Value - 1));
             }
 
-            var objToReturn = sourceObject.Take(pageSize).ToList();
+            List<T> objToReturn = sourceObject.Take(pageSize).ToList();
 
             PageableViewModel<List<T>> obj = new PageableViewModel<List<T>>()
             {

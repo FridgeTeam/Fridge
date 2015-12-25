@@ -28,9 +28,9 @@
          controller: 'LogoutController'
      })
 
-    .when('/recepie/:title', {
-        templateUrl: 'views/recepie-view.html',
-        controller: 'RecepieController'
+    .when('/recipe/:name', {
+        templateUrl: 'views/recipe-view.html',
+        controller: 'RecipeController'
     })
 
 }])

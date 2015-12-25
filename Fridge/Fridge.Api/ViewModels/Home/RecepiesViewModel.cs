@@ -5,9 +5,11 @@
     using Fridge.Common.Mapping;
     using Fridge.Models;
 
-    public class RecepieViewModel : IMapFrom<Recipe>, IHaveCustomMappings
+    public class RecepiesViewModel : IMapFrom<Recipe>, IHaveCustomMappings
     {
-        public int Id { get; set; }
+        public string UrlId {
+            get { return this.Name.Replace(" ", "-"); }           
+        }
 
         public string Name { get; set; }
 
@@ -19,7 +21,7 @@
 
         public void CreateMappings(IConfiguration configuration)
         {
-            configuration.CreateMap<Recipe, RecepieViewModel>()
+            configuration.CreateMap<Recipe, RecepiesViewModel>()
               .ForMember(dest => dest.FromUsername, opt => opt.MapFrom(from => from.PostedBy.FullName));
         }
     }

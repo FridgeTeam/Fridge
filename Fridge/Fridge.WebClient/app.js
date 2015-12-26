@@ -33,6 +33,11 @@
         controller: 'RecipeController'
     })
 
+    .when('/category/:name', {
+        templateUrl: 'views/category-view.html',
+        controller: 'CategoryController'
+    })
+
 }])
 
 
@@ -46,23 +51,20 @@
     $rootScope.username = "";
     $rootScope.isLogin = false;
     $rootScope.isAdmin = "";
-    $rootScope.category = "";
+    $rootScope.categories = [];
     $rootScope.subLocation = "";
 
-    //$rootScope.getCategories = function () {
-    //    publicRequests.getAllCategories()
-    //    .success(function (data) {
-    //        $rootScope.categories = data;
-    //        console.log(data);
-    //    })
-    //    .error(function (error) {
-    //        console.log(error);
-    //    })
-    //}
+    $rootScope.getCategories = function () {
+        publicRequests.getAllCategories()
+        .success(function (data) {
+            $rootScope.categories = data;
+        })
+        .error(function (error) {
+            console.log(error);
+        })
+    }
 
-    //$rootScope.getCategories();
-
-
+    $rootScope.getCategories();
 
     $rootScope.$on('$locationChangeStart', function (event) {
         if (userSession.getCurrentUser()) {

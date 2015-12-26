@@ -1,0 +1,16 @@
+﻿<div style="background-color:ActiveCaption">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="#/">Home</a></li>
+            <li><a href="#/categories">Categories</a></li>
+            <li class="active">{{ categoryName }}</li>
+        </ol>
+
+        <ul class="grid" ng-masonry="true">
+            <li ng-repeat="recipe in recipes track by $index">
+                <div ng-recipe datasource="recipe"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+

@@ -37,7 +37,7 @@ namespace Fridge.Data.Migrations
             List<Unit> units = this.SeedUnits(context);
             List<Ingredient> ingredient = this.SeedIngredients(context);
             List<User> users = this.SeedUsers(context);
-            this.SeedRecipes(context);
+            this.SeedRecipes(context, ingredient);
         }
 
         private List<Category> SeedCategories(FridgeDbContext context)
@@ -162,7 +162,7 @@ namespace Fridge.Data.Migrations
             return ingredients;
         }
 
-        private void SeedRecipes(FridgeDbContext context)
+        private void SeedRecipes(FridgeDbContext context, ICollection<Ingredient> ingredientCollection)
         {
             string imagesStr = File.ReadAllText(imagesFilePath);
             string recipesStr = File.ReadAllText(recipesFilePath);
@@ -181,8 +181,15 @@ namespace Fridge.Data.Migrations
 
                 int ingredientPosition = 1;
                 foreach (var ingredient in recipeObj.Ingredients)
-                {                  
+                {
                     IngredientRecipe ingredientRecipe = new IngredientRecipe() { Text = ingredient, Position = ingredientPosition++ };
+                    List<string> ingredientParts = ingredient.Split(' ').ToList();
+                    if (ingredientCollection.Any(x => ingredientParts.Contains(x.Name)))
+                    {
+                        int ingredientId = context.Ingredients.FirstOrDefault(x => ingredientParts.Contains(x.Name)).Id;
+                        ingredientRecipe.IngredientId = ingredientId;
+                    }
+
                     recipe.IngredientRecipes.Add(ingredientRecipe);
                 }
 

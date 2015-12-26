@@ -27,6 +27,8 @@
 
         public IEnumerable<string> Instructions { get; set; }
 
+        public IEnumerable<string> Ingredients { get; set; }
+
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Recipe, RecipeViewModel>()
@@ -37,6 +39,12 @@
               opt => opt.MapFrom(from => from.PreparationSteps
                                                 .OrderBy(x => x.Position)
                                                 .Select(x => x.Text)));
+
+            configuration.CreateMap<Recipe, RecipeViewModel>()
+             .ForMember(dest => dest.Ingredients,
+             opt => opt.MapFrom(from => from.IngredientRecipes
+                                               .OrderBy(x => x.Position)
+                                               .Select(x => x.Text)));
         }
     }
 }

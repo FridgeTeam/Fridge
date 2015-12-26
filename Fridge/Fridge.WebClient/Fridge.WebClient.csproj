@@ -73,6 +73,7 @@
     <Content Include="bower_components\angular-sanitize\angular-sanitize.js" />
     <Content Include="bower_components\angular-sanitize\angular-sanitize.min.js" />
     <Content Include="bower_components\angular-sanitize\index.js" />
+    <Content Include="controllers\CategoryController.js" />
     <Content Include="controllers\RecipeController.js" />
     <Content Include="directives\masonry.js" />
     <Content Include="directives\recipe.html" />
@@ -421,6 +422,7 @@
     <Content Include="styles\theme.css" />
     <Content Include="styles\theme.min.css" />
     <Content Include="templates\admin-menu-template.html" />
+    <Content Include="views\category-view.html" />
     <Content Include="views\home-view.html" />
     <Content Include="views\login-view.html" />
     <Content Include="views\recipe-view.html" />

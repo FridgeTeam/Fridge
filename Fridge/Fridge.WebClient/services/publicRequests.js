@@ -27,9 +27,12 @@
             return requester.get(url);
         },
 
+        getRecepiesByCategoryName: function (categoryName) {
+            url = baseUrl + 'recipes?categoryName=' + categoryName;
+            return requester.get(url);
+        }
 
     };
-
 
     return publicRequests;
 });

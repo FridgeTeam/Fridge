@@ -79,6 +79,6 @@
     ];
 
     $scope.repeater = function (n) {
-        var x = new Array(); for (var i = 0; i < n; i++) { x.push(i + 1); } return x;
+        return new Array(n);
     }
 });

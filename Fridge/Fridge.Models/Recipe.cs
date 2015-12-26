@@ -47,6 +47,8 @@
 
         public User PostedBy { get; set; }
 
+        public Category Category { get; set; }
+
         public int Position { get; set; }
 
         public virtual ICollection<IngredientRecipe> IngredientRecipes

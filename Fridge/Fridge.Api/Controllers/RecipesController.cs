@@ -81,6 +81,18 @@
             return this.Ok(model);
         }
 
+        // GET: api/Recipes/category
+        [HttpGet]
+        [ResponseType(typeof(RecipeViewModel))]
+        public IHttpActionResult GetRecipesByCategory(string categoryName)
+        {
+            IQueryable<RecipeViewModel> model = this.Data.Recipes.All()
+                .Where(x => x.Category.Name == categoryName)
+                .ProjectTo<RecipeViewModel>();
+
+            return this.Ok(model);
+        }
+
         // GET: api/Recipes/5
         [ResponseType(typeof(Recipe))]
         public IHttpActionResult GetRecipe(int id)

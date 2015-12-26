@@ -17,8 +17,8 @@ namespace Fridge.Data.Migrations
     public sealed class Configuration : DbMigrationsConfiguration<FridgeDbContext>
     {
         private Random random = new Random();
-        private string imagesFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\Images.json";
-        private string recipesFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\recipes.json";
+        private string imagesFilePath = @"C:\Users\ivzb\Desktop\Fridge\Fridge\Fridge.Data\Seed\Images.json";
+        private string recipesFilePath = @"C:\Users\ivzb\Desktop\Fridge\Fridge\Fridge.Data\Seed\recipes.json";
 
         public Configuration()
         {
@@ -168,7 +168,7 @@ namespace Fridge.Data.Migrations
             string recipesStr = File.ReadAllText(recipesFilePath);
             List<ImageModel> images = JsonConvert.DeserializeObject<List<ImageModel>>(imagesStr);
             List<RecipeJsonModel> recipes = JsonConvert.DeserializeObject<List<RecipeJsonModel>>(recipesStr).Take(30).ToList();
-
+            List<Category> categories = context.Categories.ToList();
 
             foreach (var recipeObj in recipes)
             {
@@ -212,8 +212,11 @@ namespace Fridge.Data.Migrations
                     }
 
                     recipe.Tags.Add(tag);
-
                 }
+
+                Random randomGenerator = new Random();
+                int categoryIndex = randomGenerator.Next(categories.Count);
+                recipe.Category = categories[categoryIndex];
 
                 context.Recipes.Add(recipe);
                 context.SaveChanges();

@@ -62,13 +62,23 @@
 
             modelBuilder.Entity<Recipe>()
               .HasMany(recipe => recipe.Ratings)
-              .WithRequired(rating => rating.Recipe)
+              .WithOptional(rating => rating.Recipe)
               .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Comment>()
             .HasMany(comment => comment.Ratings)
-            .WithRequired(rating => rating.Comment)
+            .WithOptional(rating => rating.Comment)
             .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany<Recipe>(u => u.PreparedRecipes)
+                .WithMany(r => r.PreparedBy)
+                .Map(ur =>
+                {
+                    ur.MapLeftKey("UserId");
+                    ur.MapRightKey("RecipeId");
+                    ur.ToTable("AspUserRecipes");
+                });
 
             base.OnModelCreating(modelBuilder);
         }

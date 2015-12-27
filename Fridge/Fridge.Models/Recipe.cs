@@ -6,7 +6,7 @@
 
     using Social;
     using Contracts;
-
+    using System.ComponentModel.DataAnnotations.Schema;
     public class Recipe : IPositionable
     {
         private ICollection<IngredientRecipe> ingredientRecipes;
@@ -43,7 +43,8 @@
 
         public int Servings { get; set; }
 
-        public string UserId { get; set; }
+        [ForeignKey("PostedBy")]
+        public string PostedById { get; set; }
 
         public User PostedBy { get; set; }
 

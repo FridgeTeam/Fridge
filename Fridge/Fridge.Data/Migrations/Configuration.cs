@@ -17,8 +17,11 @@ namespace Fridge.Data.Migrations
     public sealed class Configuration : DbMigrationsConfiguration<FridgeDbContext>
     {
         private Random random = new Random();
-        private string imagesFilePath = @"C:\Users\ivzb\Desktop\Fridge\Fridge\Fridge.Data\Seed\Images.json";
-        private string recipesFilePath = @"C:\Users\ivzb\Desktop\Fridge\Fridge\Fridge.Data\Seed\recipes.json";
+        //private string imagesFilePath = @"C:\Users\ivzb\Desktop\Fridge\Fridge\Fridge.Data\Seed\Images.json";
+        //private string recipesFilePath = @"C:\Users\ivzb\Desktop\Fridge\Fridge\Fridge.Data\Seed\recipes.json";
+        private string imagesFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\Images.json";
+        private string recipesFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\recipes.json";
+        private string peopleImageFilePath = @"E:\11.WepAPI\Fridge\Fridge\Fridge.Data\Seed\People.json";
 
         public Configuration()
         {
@@ -37,7 +40,77 @@ namespace Fridge.Data.Migrations
             List<Unit> units = this.SeedUnits(context);
             List<Ingredient> ingredient = this.SeedIngredients(context);
             List<User> users = this.SeedUsers(context);
-            this.SeedRecipes(context, ingredient);
+            List<Comment> comments = this.GetComments(users);
+            List<Rating> ratings = this.GetRatings(users);
+            this.SeedRecipes(context, ingredient, users, categories, comments, ratings);
+        }
+
+        private List<Rating> GetRatings(List<User> users)
+        {
+            List<Rating> ratings = new List<Rating>();
+            for (int i = 0; i < 100; i++)
+            {
+                Rating rating = new Rating()
+                {
+                    Stars = random.Next(1, 6),
+                    UserId = users[random.Next(users.Count)].Id
+                };
+                ratings.Add(rating);
+            }
+            return ratings;
+        }
+
+        private List<Comment> GetComments(List<User> users)
+        {
+            List<string> commentText = new List<string>()
+            {
+                "This is a fool proof method for making the best medium rare prime rib. Your seasonings can be changed according to your preference, but what's listed works perfectly.",
+                "Disable your smoke detectors if you prepare your roast this way! My oven cooled down much faster than two hours I feel because we had to open the windows.",
+                "Absolutely, the easiest way to make perfect prime rib every time. But do not be tempted to open up the oven door until time is up.",
+                "I know this is a culinary no-no, but we don't link pink meat, so while I partially use this method, I didn't do it exactly as Chef John suggests.",
+                "Prime rib was perfect, juicy and perfectly pink. Followed the recipe exactly with a 4 lb prime rib. Loved it! Love the video to really get a good sense of how to apply the butter and herbs.",
+                "OMG .. I have never been able to do Prime Rib correctly and I finally cracked it using this recipe. Thank you thank you thank you! The only alteration I made was to do the math."
+            };
+
+            List<Comment> comments = new List<Comment>();
+            for (int i = 0; i < 100; i++)
+            {
+                Comment comment = new Comment()
+                {
+                    Text = commentText[random.Next(commentText.Count)],
+                    UserId = users[random.Next(users.Count)].Id,
+                    Ratings = new HashSet<Rating>() {
+                        new Rating()
+                        {
+                            Stars = random.Next(1, 6),
+                            UserId = users[random.Next(users.Count)].Id
+                        },
+                        new Rating()
+                        {
+                            Stars = random.Next(1, 6),
+                            UserId = users[random.Next(users.Count)].Id
+                        },
+                        new Rating()
+                        {
+                            Stars = random.Next(1, 6),
+                            UserId = users[random.Next(users.Count)].Id
+                        },
+                        new Rating()
+                        {
+                            Stars = random.Next(1, 6),
+                            UserId = users[random.Next(users.Count)].Id
+                        },
+                        new Rating()
+                        {
+                            Stars = random.Next(1, 6),
+                            UserId = users[random.Next(users.Count)].Id
+                        },
+                    }
+                };
+
+                comments.Add(comment);
+            }
+            return comments;
         }
 
         private List<Category> SeedCategories(FridgeDbContext context)
@@ -80,6 +153,8 @@ namespace Fridge.Data.Migrations
         private List<User> SeedUsers(FridgeDbContext context)
         {
             var usernames = new string[] { "admin", "andrei", "joro", "peter", "ceco", "ivan" };
+            string userImageStr = File.ReadAllText(peopleImageFilePath);
+            List<ImageModel> userImages = JsonConvert.DeserializeObject<List<ImageModel>>(userImageStr);
 
             var users = new List<User>();
             var userStore = new UserStore<User>(context);
@@ -103,6 +178,7 @@ namespace Fridge.Data.Migrations
                     FullName = name,
                     Name = name,
                     Email = username + "@gmail.com",
+                    Image = userImages[random.Next(userImages.Count)].Image,
                     IsActive = true,
                 };
 
@@ -162,21 +238,26 @@ namespace Fridge.Data.Migrations
             return ingredients;
         }
 
-        private void SeedRecipes(FridgeDbContext context, ICollection<Ingredient> ingredientCollection)
+        private void SeedRecipes(FridgeDbContext context, List<Ingredient> ingredientCollection,
+            List<User> users, List<Category> categories, List<Comment> comments, List<Rating> ratings)
         {
             string imagesStr = File.ReadAllText(imagesFilePath);
             string recipesStr = File.ReadAllText(recipesFilePath);
             List<ImageModel> images = JsonConvert.DeserializeObject<List<ImageModel>>(imagesStr);
             List<RecipeJsonModel> recipes = JsonConvert.DeserializeObject<List<RecipeJsonModel>>(recipesStr).Take(30).ToList();
-            List<Category> categories = context.Categories.ToList();
 
             foreach (var recipeObj in recipes)
             {
                 Recipe recipe = new Recipe()
                 {
                     Name = recipeObj.Title,
-                    Image = images[random.Next(0, images.Count)].Image,
-                    Description = recipeObj.Description
+                    Image = images[random.Next(images.Count)].Image,
+                    Description = recipeObj.Description,
+                    PostedBy = users[random.Next(users.Count)],
+                    CookingTime = new TimeSpan(0, random.Next(5, 61), 0),
+                    PreparationTime = new TimeSpan(0, random.Next(5, 61), 0),
+                    Servings = random.Next(2, 6),
+                    TotalTime = new TimeSpan(0, random.Next(5, 61), 0),
                 };
 
                 int ingredientPosition = 1;
@@ -208,10 +289,21 @@ namespace Fridge.Data.Migrations
                         tag = new Tag();
                         tag.Name = tagObj;
                         context.Tags.Add(tag);
-                        context.SaveChanges();
                     }
 
                     recipe.Tags.Add(tag);
+                }
+
+                for (int i = 0; i < 20; i++)
+                {
+                    recipe.Ratings.Add(ratings[random.Next(ratings.Count)]);
+                    recipe.Comments.Add(comments[random.Next(comments.Count)]);
+                    //context.SaveChanges();
+                }
+
+                foreach (var user in users)
+                {
+                    recipe.PreparedBy.Add(user);
                 }
 
                 Random randomGenerator = new Random();
@@ -222,7 +314,5 @@ namespace Fridge.Data.Migrations
                 context.SaveChanges();
             }
         }
-
-
     }
 }

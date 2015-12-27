@@ -45,6 +45,10 @@
     }
 }
 
+.recipe-image {
+    width: 100%;
+}
+
 /* Login form */
 #authbox {
     margin-top: 30px;

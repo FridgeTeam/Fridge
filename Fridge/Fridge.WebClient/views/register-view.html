@@ -1,45 +1,46 @@
 ﻿<div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-1">
-            <h2>Register</h2>
-        </div>
-        <div class="col-md-5 col-md-offset-1">
+        <hr />
+        <div id="authbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">Register</div>
+                </div>
 
-            <div class="panel">
-                <form>
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" class="form-control" ng-model="userData.username" id="username" placeholder="Enter username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" class="form-control" ng-model="userData.password" id="password" placeholder="Enter password">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password:</label>
-                        <input type="password" class="form-control" ng-model="userData.confirmPassword" id="confirm-password" placeholder="Enter confirm password">
-                    </div>
-                </form>
-            </div>
-        </div>
+                <div class="panel-body">
+                    <form name="form" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="username" ng-model="userData.username" type="text" class="form-control" name="user" value="" placeholder="User">
+                        </div>
 
-        <div class="col-md-5">
-            <div class="panel">
-                <form>
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" ng-model="userData.name" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" ng-model="userData.email" id="email" placeholder="Email">
-                    </div>
-                    <div class="form-group invisible">
-                        <label for="name"></label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="btn btn-primary" ng-click="register()">Register</div>
-                </form>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" ng-model="userData.password" type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="confirm-password" ng-model="userData.confirmPassword" type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input id="email" ng-model="userData.email" type="text" class="form-control" name="email" placeholder="Email">
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="name" ng-model="userData.name" type="text" class="form-control" name="name" placeholder="Name">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12 controls">
+                                <button type="submit" ng-click="register()" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-log-in"></i> Register</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

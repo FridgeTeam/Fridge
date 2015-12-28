@@ -30,6 +30,11 @@
         getRecepiesByCategoryName: function (categoryName) {
             url = baseUrl + 'recipes?categoryName=' + categoryName;
             return requester.get(url);
+        },
+
+        getCommentsByCategoryName: function (recipeName, pageNumber, pageSize) {
+            url = baseUrl + 'comments?recipeName=' + recipeName + "&startPage=" + pageNumber + "&pageSize=" + pageSize;
+            return requester.get(url);
         }
 
     };

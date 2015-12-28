@@ -1,84 +1,83 @@
 ﻿angular.module('app')
 
-.controller('RecipeController', function ($scope, $rootScope, $location, $routeParams, publicRequests, userSession, notyService) {   
+.controller('RecipeController', function ($scope, $rootScope, $location, $routeParams, publicRequests, userSession, notyService) {
 
     var recipeName = $routeParams.name;
     $scope.recipe = {};
     $scope.relativeRecipes = [];
+    $scope.comments = [];
 
-    publicRequests.getRecipeByName(recipeName)
-        .success(function (data) {
-            $scope.recipe = data;
-        })
-        .error(function (error) {
-            console.log(error);
-        });
+    $scope.commentPageSize = 4;
+    $scope.pageNumber = 1;
 
-   publicRequests.getRandomRecipes(3)
-        .success(function (data) {
-            $scope.relativeRecipes = data;
-        })
-        .error(function (error) {
-            console.log(error);
-        });
-   
+    //help functions
+    $scope.fixRationg = function (starsCountObject) {
+        var result = [];
+        for (var i = 0; i < 5; i++) {
+            var currentStar = i + 1;
+            var stars = Enumerable.From(starsCountObject)
+                .Where(function (x) { return x.Star == currentStar })
+                .Select(function (x) { return x.StarCount })
+                .FirstOrDefault();
 
+            if (!stars) {
+                stars = 0;
+            }
 
-
-
-
-    $scope.reviews = [
-        {
-            "chef": {
-                "name": "Haiku",
-                "image": "http://www.coachcalorie.com/wp-content/uploads/2013/03/Your-Plan-of-Attack-For-Easy-Healthy-Cooking.jpg"
-            },
-            "content": "This is a fool proof method for making the best medium rare prime rib. Your seasonings can be changed according to your preference, but what's listed works perfectly.",
-            "stars": 5
-        },
-        {
-            "chef": {
-                "name": "Denise",
-                "image": "http://cdn.sheknows.com/articles/2013/05/woman-cooking-pasta.jpg"
-            },
-            "content": "Disable your smoke detectors if you prepare your roast this way! My oven cooled down much faster than two hours I feel because we had to open the windows.",
-            "stars": 3
-        },
-        {
-            "chef": {
-                "name": "Claudia",
-                "image": "http://www.thatitgirl.com/wp-content/uploads/2010/04/woman-cooking-860.jpg"
-            },
-            "content": "Absolutely, the easiest way to make perfect prime rib every time. But do not be tempted to open up the oven door until time is up.",
-            "stars": 5
-        },
-        {
-            "chef": {
-                "name": "Annie",
-                "image": "http://cdn.sheknows.com/articles/2012/02/chefmom-woman-cooking-pasta.jpg"
-            },
-            "content": "I know this is a culinary no-no, but we don't link pink meat, so while I partially use this method, I didn't do it exactly as Chef John suggests. ",
-            "stars": 1
-        },
-        {
-            "chef": {
-                "name": "Karen",
-                "image": "http://cdn.sheknows.com/articles/2012/03/woman-cooking-with-skillet.jpg"
-            },
-            "content": "Prime rib was perfect, juicy and perfectly pink. Followed the recipe exactly with a 4 lb prime rib. Loved it! Love the video to really get a good sense of how to apply the butter and herbs.",
-            "stars": 4
-        },
-        {
-            "chef": {
-                "name": "Jane",
-                "image": "http://cdn.sheknows.com/articles/2010/03/woman-cooking-with-pot.jpg"
-            },
-            "content": "OMG .. I have never been able to do Prime Rib correctly and I finally cracked it using this recipe. Thank you thank you thank you! The only alteration I made was to do the math.",
-            "stars": 5
+            result.push(stars);
         }
-    ];
+
+        return result;
+    }
 
     $scope.repeater = function (n) {
         return new Array(n);
     }
+
+    //handlers
+    $scope.getComments = function () {
+        publicRequests.getCommentsByCategoryName(recipeName, $scope.pageNumber, $scope.commentPageSize)
+           .success(function (data) {
+               $scope.comments = data;
+           })
+           .error(function (error) {
+               console.log(error);
+           });
+    }
+
+    $scope.previeousComment = function () {
+        $scope.pageNumber = $scope.pageNumber - 1;
+        $scope.getComments();       
+
+    }
+
+    $scope.nextComment = function () {
+        $scope.pageNumber = $scope.pageNumber + 1;
+        $scope.getComments();
+    }
+
+
+
+    //starts
+    publicRequests.getRecipeByName(recipeName)
+        .success(function (data) {
+            $scope.recipe = data;
+            var starsCountObject = data.RatingByStars;
+            $scope.recipe.RatingByStars = $scope.fixRationg(starsCountObject);
+        })
+        .error(function (error) {
+            console.log(error);
+        });
+
+    publicRequests.getRandomRecipes(3)
+         .success(function (data) {
+             $scope.relativeRecipes = data;
+         })
+         .error(function (error) {
+             console.log(error);
+         });
+
+    $scope.getComments();
+
+
 });

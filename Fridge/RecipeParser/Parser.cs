@@ -30,7 +30,6 @@ namespace RecipeParser
                 Console.Write("Tags: ");
                 Console.WriteLine(string.Join("\n ", item.Tags));
             }
-
         }
     }
 }

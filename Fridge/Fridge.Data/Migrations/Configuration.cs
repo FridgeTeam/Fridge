@@ -79,33 +79,7 @@ namespace Fridge.Data.Migrations
                 {
                     Text = commentText[random.Next(commentText.Count)],
                     UserId = users[random.Next(users.Count)].Id,
-                    Ratings = new HashSet<Rating>() {
-                        new Rating()
-                        {
-                            Stars = random.Next(1, 6),
-                            UserId = users[random.Next(users.Count)].Id
-                        },
-                        new Rating()
-                        {
-                            Stars = random.Next(1, 6),
-                            UserId = users[random.Next(users.Count)].Id
-                        },
-                        new Rating()
-                        {
-                            Stars = random.Next(1, 6),
-                            UserId = users[random.Next(users.Count)].Id
-                        },
-                        new Rating()
-                        {
-                            Stars = random.Next(1, 6),
-                            UserId = users[random.Next(users.Count)].Id
-                        },
-                        new Rating()
-                        {
-                            Stars = random.Next(1, 6),
-                            UserId = users[random.Next(users.Count)].Id
-                        },
-                    }
+
                 };
 
                 comments.Add(comment);
@@ -296,9 +270,51 @@ namespace Fridge.Data.Migrations
 
                 for (int i = 0; i < 20; i++)
                 {
-                    recipe.Ratings.Add(ratings[random.Next(ratings.Count)]);
-                    recipe.Comments.Add(comments[random.Next(comments.Count)]);
-                    //context.SaveChanges();
+                    Rating ratingDemo = ratings[random.Next(ratings.Count)];
+                    Rating rating = new Rating()
+                    {
+                        Stars = ratingDemo.Stars,
+                        UserId = ratingDemo.UserId
+                    };
+                    recipe.Ratings.Add(rating);
+
+                    Comment commentDemo = comments[random.Next(comments.Count)];
+                    Comment comment = new Comment()
+                    {
+                        Text = commentDemo.Text,
+                        UserId = commentDemo.UserId,
+                        Ratings = new HashSet<Rating>()
+                        {
+                            new Rating()
+                            {
+                                Stars = random.Next(1, 6),
+                                UserId = users[random.Next(users.Count)].Id
+                            },
+                            new Rating()
+                            {
+                                Stars = random.Next(1, 6),
+                                UserId = users[random.Next(users.Count)].Id
+                            },
+                            new Rating()
+                            {
+                                Stars = random.Next(1, 6),
+                                UserId = users[random.Next(users.Count)].Id
+                            },
+                            new Rating()
+                            {
+                                Stars = random.Next(1, 6),
+                                UserId = users[random.Next(users.Count)].Id
+                            },
+                            new Rating()
+                            {
+                                Stars = random.Next(1, 6),
+                                UserId = users[random.Next(users.Count)].Id
+                            },
+                        }
+
+                    };
+
+                    recipe.Comments.Add(comment);
                 }
 
                 foreach (var user in users)

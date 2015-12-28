@@ -16,6 +16,7 @@
 /// <reference path="../controllers/user/UserSettingsController.js" />
 /// <reference path="../directives/masonry.js" />
 /// <reference path="../directives/recipe.js" />
+/// <reference path="linq.min.js" />
 /// <reference path="../services/adminrequests.js" />
 /// <reference path="../services/baseurl.js" />
 /// <reference path="../services/components/datepicker.js" />

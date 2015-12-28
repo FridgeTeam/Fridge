@@ -25,9 +25,13 @@
 
         public string PostedBy { get; set; }
 
+        public string PostedByImage { get; set; }
+
         public IEnumerable<string> Instructions { get; set; }
 
         public IEnumerable<string> Ingredients { get; set; }
+
+        public IEnumerable<GroupStarViewModel> RatingByStars { get; set; }        
 
         public void CreateMappings(IConfiguration configuration)
         {
@@ -45,6 +49,12 @@
              opt => opt.MapFrom(from => from.IngredientRecipes
                                                .OrderBy(x => x.Position)
                                                .Select(x => x.Text)));
+            configuration.CreateMap<Recipe, RecipeViewModel>()
+             .ForMember(dest => dest.RatingByStars,
+             opt => opt.MapFrom(from => from.Ratings
+                                             .GroupBy(x => x.Stars,
+                                                      (key, g) => new GroupStarViewModel { Star = key, StarCount = g.Count() })
+                                             .OrderBy(x => x.Star)));
         }
     }
 }

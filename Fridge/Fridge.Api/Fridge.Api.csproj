@@ -278,6 +278,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="BindingModels\CommentsBindingModel.cs" />
     <Compile Include="BindingModels\PageableBindingModel.cs" />
     <Compile Include="BindingModels\IPageableBindingModel.cs" />
     <Compile Include="BindingModels\User\LoginBindingModel.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -301,8 +303,10 @@
     <Compile Include="UserSessionManager\SessionAuthorizeAttribute.cs" />
     <Compile Include="UserSessionManager\UserSessionManager.cs" />
     <Compile Include="ViewModels\CategoriesViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\Home\RecepiesViewModel.cs" />
     <Compile Include="ViewModels\IPageable.cs" />
+    <Compile Include="ViewModels\Recipe\GroupStarViewModel.cs" />
     <Compile Include="ViewModels\Recipe\RecipeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

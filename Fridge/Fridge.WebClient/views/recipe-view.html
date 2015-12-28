@@ -1,4 +1,39 @@
-﻿<div class="container">
+﻿<style>
+    .nav > li > a {
+        padding: 10px 0 !important;
+    }
+
+    .nav.nav-pills.nav-justified, .nav.nav-pills.nav-stacked {
+        background: #f5f5f5;
+        font-size: 0.9em;
+    }
+
+    .thumbnail {
+        height: 400px;
+    }
+
+    .animate-repeat.ng-move,
+    .animate-repeat.ng-enter,
+    .animate-repeat.ng-leave {
+        transition: all linear 0.5s;
+    }
+
+        .animate-repeat.ng-leave.ng-leave-active,
+        .animate-repeat.ng-move,
+        .animate-repeat.ng-enter {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+            .animate-repeat.ng-leave,
+            .animate-repeat.ng-move.ng-move-active,
+            .animate-repeat.ng-enter.ng-enter-active {
+                opacity: 1;
+                transform: scale(1);
+            }
+</style>
+
+<div class="container">
     <div class="row">
         <div class="col-md-9">
             <div class="row">
@@ -10,29 +45,10 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <img ng-src="{{ recipe.Image }}" class="recipe-image" alt="recipe" />
-                </div>
-                <div class="col-md-8">
-                    <h3>{{ recipe.Name }}</h3>
-
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="#/"><img class="media-object" src="{{ recipe.Chef.Image }}" alt="chef"></a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading"><a href="#/">{{ recipe.Chef.Name }}</a></h4>
-                            <p>"{{ recipe.Description }}"</p>
-                        </div>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 37%;">
-                            Complexity: 37%
-                        </div>
-                    </div>
                     <div class="row">
-                        <ul class="nav nav-pills nav-justified" style="background: #f5f5f5;">
+                        <ul class="nav nav-pills nav-justified">
                             <li role="presentation" class=""><a href="#/"><span class="glyphicon glyphicon-heart"></span> Save</a></li>
                             <li role="presentation" class=""><a href="#/"><span class="glyphicon glyphicon-ok-sign"></span> I Made It</a></li>
                             <li role="presentation" class=""><a href="#/"><span class="glyphicon glyphicon-star"></span> Rate</a></li>
@@ -40,6 +56,81 @@
                             <li role="presentation" class=""><a href="#/"><span class="glyphicon glyphicon-eye-open"></span> 123 Views</a></li>
                         </ul>
                     </div>
+                </div>
+                <div class="col-md-7">
+                    <h3>{{ recipe.Name }}</h3>
+
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#/"><img class="media-object" ng-src="{{ recipe.PostedByImage }}" width="200" alt="chef"></a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#/">{{ recipe.PostedBy }}</a></h4>
+                            <p>"{{ recipe.Description }}"</p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li role="presentation">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span ng-repeat="i in repeater(5) track by $index">
+                                        <span class="glyphicon glyphicon-star" style="visibility:hidden"></span>
+                                    </span>
+                                    {{ recipe.RatingByStars[0]}}
+                                </li>
+                                <li role="presentation" class="">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span ng-repeat="i in repeater(4) track by $index">
+                                        <span class="glyphicon glyphicon-star" style="visibility:hidden"></span>
+                                    </span>
+                                    {{ recipe.RatingByStars[1]}}
+                                </li>
+                                <li role="presentation" class="">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span ng-repeat="i in repeater(3) track by $index">
+                                        <span class="glyphicon glyphicon-star" style="visibility:hidden"></span>
+                                    </span>
+                                    {{recipe.RatingByStars[2]}}
+                                </li>
+                                <li role="presentation" class="">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span ng-repeat="i in repeater(2) track by $index">
+                                        <span class="glyphicon glyphicon-star" style="visibility:hidden"></span>
+                                    </span>
+                                    {{ recipe.RatingByStars[3]}}
+                                </li>
+                                <li role="presentation" class="">
+                                    <span ng-repeat="i in repeater(5) track by $index">
+                                        <span class="glyphicon glyphicon-star"></span>
+                                    </span>
+                                    <span class="glyphicon glyphicon-star" style="visibility:hidden"></span>
+                                    {{recipe.RatingByStars[4]}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>Average rating <span class="badge">3.5</span></li>
+                                <li><span class="badge">99</span> people made it</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 37%;">
+                                    Complexity: 37%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -76,17 +167,23 @@
                 <h1>Reviews</h1>
                 <hr />
                 <div class="row">
-                    <div class="col-md-4" ng-repeat="review in reviews">
+                    <div class="col-sm-3 animate-repeat" ng-repeat="comment in comments.Result track by comment.Id">
                         <div class="thumbnail">
-                            <img src="{{ review.chef.image }}" alt="chef">
+                            <img ng-src="{{ comment.UserImage }}" alt="chef">
                             <div class="caption">
-                                <h3>{{ review.chef.name }}</h3>
-                                {{ review.content }}
+                                <h3>{{ comment.Username}}</h3>
+                                {{ comment.Text }}
                                 <hr />
-                                Rating: <span ng-repeat="i in repeater(review.stars) track by $index"><span class="glyphicon glyphicon-star"></span></span>
+                                Rating: <span ng-repeat="i in repeater(comment.Stars) track by $index"><span class="glyphicon glyphicon-star"></span></span>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="pull-left btn btn-primary" ng-click="previeousComment()" ng-show="pageNumber > 1">
+                    Previous
+                </div>
+                <div class="pull-right btn btn-primary" ng-click="nextComment()" ng-show="pageNumber < comments.NumPages">
+                    Next
                 </div>
             </div>
         </div>

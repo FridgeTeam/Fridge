@@ -17,12 +17,12 @@
 
         public string Image { get; set; }
 
-        public string FromUsername { get; set; }
+        public string PostedBy { get; set; }
 
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Recipe, RecepiesViewModel>()
-              .ForMember(dest => dest.FromUsername, opt => opt.MapFrom(from => from.PostedBy.FullName));
+              .ForMember(dest => dest.PostedBy, opt => opt.MapFrom(from => from.PostedBy.FullName));
         }
     }
 }
